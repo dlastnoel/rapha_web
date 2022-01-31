@@ -1,0 +1,75 @@
+{% extends 'base/in_main.html' %}
+{% load static %}
+
+{% block content %}
+<main class="col-md-10 ms-auto mt-3 pl-5">
+  <h2>{{ title }}</h2>
+  <hr>
+
+  <form method="POST" action="{% url 'edit-doctor'%}" enctype="multipart/form-data">
+  {% csrf_token %}
+    <div class="row">
+      <div class="col-md-12">
+        <label for="profile_image">{{ doctor_form.profile_image.label }}</label>
+        {{ doctor_form.profile_image }}
+      </div>
+      <hr class="mt-1">
+      <div class="col-md-6">
+        <div class="mb-2">
+          <label for="specialization">{{ doctor_form.specialization.label }}</label>
+          {{ doctor_form.specialization }}
+        </div>
+        <div class="mb-2">
+          <label for="first_name" class="form-label">{{ user_form.first_name.label }}</label>
+          {{ user_form.first_name }}
+        </div>
+        <div class="mb-2">
+          <label for="middle_name" class="form-label">{{ doctor_form.middle_name.label }}</label>
+          {{ doctor_form.middle_name }}
+        </div>
+        <div class="mb-2">
+          <label for="last_name" class="form-label">{{ user_form.last_name.label }}</label>
+          {{ user_form.last_name }}
+        </div>
+        <div class="mb-2">
+          <label for="username" class="form-label">{{ user_form.username.label }}</label>
+          {{ user_form.username }}
+        </div>
+        <div class="mb-2">
+          <label for="address" class="form-label">{{ doctor_form.address.label }}</label>
+          {{ doctor_form.address }}
+        </div>
+        <div class="mb-2">
+          <label for="email" class="form-label">{{ user_form.email.label }}</label>
+          {{ user_form.email }}
+        </div>
+        <div class="mb-2">
+          <label for="contact" class="form-label">Contact Number</label>
+          {{ doctor_form.contact }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-2">
+          <label for="short_bio" class="form-label">{{ doctor_form.short_bio.label }}</label>
+          {{ doctor_form.short_bio }}
+        </div>
+        <div class="mb-2">
+          <label for="schedule" class="form-label">{{ doctor_form.schedule.label }}</label>
+          {{ doctor_form.schedule }}
+        </div>
+        <div class="mb-2">
+          <label for="password1" class="form-label">{{ user_form.password1.label }}</label>
+          {{ user_form.password1 }}
+        </div>
+        <div class="mb-3">
+          <label for="password2" class="form-label">Confirm Password</label>
+          {{ user_form.password2 }}
+        </div>
+        <div class="mb-3 text-center">
+          <input type="submit" value="Update" class="btn btn-block w-100 btn-lg btn-primary mb-3">
+        </div>
+      </div>
+    </div>
+  </form>
+</main>
+{% endblock content %}

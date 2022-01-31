@@ -1,0 +1,130 @@
+{% extends 'base/in_main.html' %}
+{% load static %}
+
+{% block content %}
+<main class="col-md-10 ms-auto m-md-0 ms-lg-auto mt-3 pl-5">
+  <div class="mt-3">
+    <h2>{{ title }}</h2>
+  </div>
+  <hr>
+  <div class="row d-sm-block d-md-none">
+    <div class="col-md-12">
+      <table id="doctor-table" class="table table-light table-borderless table-striped">
+        <thead>
+          <tr>
+              <th>Full Name</th>
+              <th>Status</th>
+              <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for doctor_data in doctors %}
+          {% if doctor_data.id != doctor.id %}
+          <tr>
+            <td>{{ doctor_data.first_name }}&nbsp;{{ doctor_data.last_name }} </td>
+            <td>
+              {% if doctor_data.is_activated %}
+              <a href="{% url 'deactivate' doctor_data.id %}" class="fw-bold text-primary">ACTIVATED</a>
+              {% else %}
+              <a href="{% url 'activate' doctor_data.id %}" class="fw-bold text-danger">DEACTIVATED</a>
+              {% endif%}
+            </td>
+            <td>
+              <a href="{% url 'doctor-profile' doctor_data.id %}"><i class="fas fa-eye"></i></a>
+              &nbsp;
+              <a href="" id="{{ doctor_data.id }}"class="delete-dr-button text-primary" data-bs-toggle="modal" data-bs-target="#modal-delete"><i class="fas fa-trash"></i></a>
+            </td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+      </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row d-sm-none d-none d-md-block">
+    <div class="col-md-12">
+      <table id="doctor-table" class="table table-light table-borderless table-striped">
+        <thead>
+          <tr>
+              <th>Specialization</th>
+              <th>Full Name</th>
+              <th>Address</th>
+              <th>Contact</th>
+              <th>Email</th>
+              <th>Schedule</th>
+              <th>Status</th>
+              <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for doctor_data in doctors %}
+          {% if doctor_data.id != doctor.id %}
+          <tr>
+            <td>{{ doctor_data.specialization }}</td>
+            <td>{{ doctor_data.first_name }}&nbsp;{{ doctor_data.last_name }} </td>
+            <td>{{ doctor_data.address }}</td>
+            <td>{{ doctor_data.contact }}</td>
+            <td>{{ doctor_data.email }}</td>
+            <td>{{ doctor_data.schedule }}</td>
+            <td>
+              {% if doctor_data.is_activated %}
+              <a href="{% url 'deactivate' doctor_data.id %}" class="fw-bold text-primary">ACTIVATED</a>
+              {% else %}
+              <a href="{% url 'activate' doctor_data.id %}" class="fw-bold text-danger">DEACTIVATED</a>
+              {% endif%}
+            </td>
+            <td>
+              <a href="{% url 'doctor-profile' doctor_data.id %}"><i class="fas fa-eye"></i></a>
+              &nbsp;
+              <a href="" id="{{ doctor_data.id }}"class="delete-dr-button text-primary" data-bs-toggle="modal" data-bs-target="#modal-delete"><i class="fas fa-trash"></i></a>
+            </td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+      </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<!-- Modal Delete -->
+<div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="modal-delete" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="delete" action="{% url 'delete-doctor' 123 %}">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-delete">Delete Doctor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h4>Confirm delete?</h4>
+        </div>
+        <div class="modal-footer">
+          <input type="submit" value="Yes" class="btn btn-primary">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  const triggerDelete = document.getElementsByClassName('delete-dr-button');
+  for(let i=0; i < triggerDelete.length; i++) {
+    triggerDelete[i].addEventListener('click', ()=> {
+      const deleteForm = document.getElementById('delete');
+      formAction = deleteForm.action;
+      deleteForm.action = formAction.replace(/.{0,4}$/, '') + triggerDelete[i].id + '/';
+    })
+  }
+
+  $(document).ready(function() {
+    var table = $('#doctor-table').DataTable( {
+        responsive: true
+    } );
+ 
+    new $.fn.dataTable.FixedHeader( table );
+} );
+</script>
+{% endblock content%}

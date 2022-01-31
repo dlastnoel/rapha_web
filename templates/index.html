@@ -1,0 +1,302 @@
+{% extends 'base/out_main.html' %}
+{% load static %}
+
+{% block content %}
+
+<main id="main" class="d-flex flex-column vh-100 justify-content-center align-items-center">
+  {% include 'base/out_nav.html' %}
+  <!-- Landing Page -->
+  <div class="w-100">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-sm-12 text-center">
+          <img src="{% static 'img/rapha_logo.png' %}"" alt="" class="img img-fluid">
+          <h1 class="display-5"><strong>Your Medical Friend</strong></h1>
+        </div>
+        <div class="col-md-6 col-sm-12 position-relative">
+          <img src="{% static 'img/hospital-1.jpg' %}" class="img-fluid clip-image-top" width="500px">
+          <img src="{% static 'img/hospital-2.jpg' %}" class="img-fluid clip-image-bottom" width="500px">
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- About -->
+<section id="about" class="mt-3 p-5">
+  <h1 class="display-4 text-center"><strong>About</strong></h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <img src="{% static 'img/dmmmsu_logo.png' %}" width="200px" alt="DMMMSU" class="img-fluid">
+        <img src="{% static 'img/cit_logo.png' %}" width="180px" alt="CIT" class="img-fluid">
+        <img src="{% static 'img/rapha_logo.png' %}" alt="" class="img img-fluid">
+      </div>
+      <div class="col-md-6">
+        <p class="fs-2 fw-bold text-center">The Study</p>
+        <p class="fs-4 text-justify">Rapha is a medical history taking application that will help you manage your time, for faster transaction to doctors, to have an accurate and reliable medical data about your situation.</p>
+        <p class="fs-4 text-justify">Rapha is an ongoing capstone study by 4 students of the Don Mariano Marcos Memorial State University - Mid La Union Campus, College of Information Technology which is expected to be finish on the midyear of 2022.</p>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- Proponents -->
+<section id="proponents" class="mt-3 p-5 text-white">
+  <h1 class="display-4 text-center"><strong>Proponents</strong></h1>
+
+  <div class="row m-5 text-center">
+    <div class="col-md-3 col-sm-12">
+      <div class="card bg-transparent border-0">
+        <div class="card-body">
+          <img src="{% static 'img/profile.png' %}" class="img-fluid m-width-200" alt="Profile">
+        </div>
+        <div class="card-footer">
+          <h4>Irish P. Lagasca</h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-12">
+      <div class="card bg-transparent border-0">
+        <div class="card-body">
+          <img src="{% static 'img/profile.png' %}" class="img-fluid m-width-200" alt="Profile">
+        </div>
+        <div class="card-footer">
+          <h4>Ian Justin B. Salazar</h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-12">
+      <div class="card bg-transparent border-0">
+        <div class="card-body">
+          <img src="{% static 'img/profile.png' %}" class="img-fluid m-width-200" alt="Profile">
+        </div>
+        <div class="card-footer">
+          <h4>Noel Xavier M. Ulpindo</h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-12">
+      <div class="card bg-transparent border-0">
+        <div class="card-body">
+          <img src="{% static 'img/profile.png' %}" class="img-fluid m-width-200" alt="Profile">
+        </div>
+        <div class="card-footer">
+          <h4>Isiah Neil B. Villanueva</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section id="features" class="mt-5">
+  <h1 class="display-5 text-center"><strong>Features</strong></h1>
+  <div class="container-fluid my-5">
+    <div class="row">
+      <div class="col-md-4 multi-platform p-3">
+        <div class="container">
+          <h3 class="fs-3">Multi-Platform</h3>
+          <p class="lead">Rapha is a cross-platform program that runs on several operating systems. You may access it via mobile device or online browser. We designed it cross-platform to ensure that it is easily accessible. By developing a responsive website and a mobile application with low system requirements, you make it easy for users to utilize it.</p>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-12 analytics-ready p-3">
+        <div class="container">
+          <h3 class="fs-3">Analytics Ready</h3>
+          <p class="lead">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas aut quam est ducimus! Doloremque recusandae, totam necessitatibus corporis impedit odio placeat repellat facere consectetur magni vitae mollitia fugit soluta numquam, exercitationem ratione velit ea!</p>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-12 encrypted p-3 text-white">
+        <div class="container">
+          <h3 class="fs-3">Encrypted</h3>
+          <p class="lead">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas aut quam est ducimus! Doloremque recusandae, totam necessitatibus corporis impedit odio placeat repellat facere consectetur magni vitae mollitia fugit soluta numquam, exercitationem ratione velit ea!</p>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row">
+      <div class="col-md-6 col-sm-12 ai-powered p-3 text-white">
+        <div class="container">
+          <h3 class="fs-3">AI Powered</h3>
+          <p class="lead">The Rapha application uses artificial intelligence to provide the patient with feedback and diagnosis data. The responses and diagnoses that AI provides are based on how patients respond to the questionnaire and medical history. The application will generate data using AI, find the most accurate responses, and rank them.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12 encrypted p-3 text-white">
+        <div class="container">
+          <h3 class="fs-3">Encrypted</h3>
+          <p class="lead">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas aut quam est ducimus! Doloremque recusandae, totam necessitatibus corporis impedit odio placeat repellat facere consectetur magni vitae mollitia fugit soluta numquam, exercitationem ratione velit ea! Cupiditate ipsam perspiciatis quia illum nostrum quo quod reiciendis amet, accusantium debitis, at, cumque nulla? Facere dicta iusto tempora architecto ex esse odit fugit adipisci vel ipsa, consequatur ea explicabo dolorum quos laudantium quo! Dolor qui sequi, beatae obcaecati tempora impedit magni dolore id officiis similique.</p>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</section>
+
+<!-- FAQs -->
+<section id="faqs">
+  <h1 class="display-5 text-center"><strong>Frequently Answered Questions</strong></h1>
+  <div class="container mt-3 pb-5">
+    <!-- FAQs Account -->
+    <h1 class="fs-3 text-center"><strong>Account</strong></h1>
+    <hr>
+    <div class="accordion accordion-flush" id="faqs-account">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="account-1">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#account-1-content" aria-expanded="false" aria-controls="account-1-content">
+            Registration
+          </button>
+        </h2>
+        <div id="account-1-content" class="accordion-collapse collapse" aria-labelledby="account-1" data-bs-parent="#faqs-account">
+          <div class="accordion-body">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum earum quam aliquam nam dicta assumenda dignissimos quasi minus odit at.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="account-2">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#account-2-content" aria-expanded="false" aria-controls="account-2-content">
+            Login
+          </button>
+        </h2>
+        <div id="account-2-content" class="accordion-collapse collapse" aria-labelledby="account-2" data-bs-parent="#faqs-account">
+          <div class="accordion-body">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum earum quam aliquam nam dicta assumenda dignissimos quasi minus odit at.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="account-3">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#account-3-content" aria-expanded="false" aria-controls="account-3-content">
+            Forgotten Password
+          </button>
+        </h2>
+        <div id="account-3-content" class="accordion-collapse collapse" aria-labelledby="account-3" data-bs-parent="#faqs-account">
+          <div class="accordion-body">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum earum quam aliquam nam dicta assumenda dignissimos quasi minus odit at.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQS Using Rapha -->
+    <h1 class="fs-3 text-center"><strong>Using Rapha</strong></h1>
+    <hr>
+    <div class="accordion accordion-flush" id="faqs-rapha">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="rapha-1">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rapha-1-content" aria-expanded="false" aria-controls="rapha-1-content">
+            Answering the Form
+          </button>
+        </h2>
+        <div id="rapha-1-content" class="accordion-collapse collapse" aria-labelledby="rapha-1" data-bs-parent="#faqs-rapha">
+          <div class="accordion-body">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum earum quam aliquam nam dicta assumenda dignissimos quasi minus odit at.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="rapha-2">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rapha-2-content" aria-expanded="false" aria-controls="rapha-2-content">
+            Medical Analysis
+          </button>
+        </h2>
+        <div id="rapha-2-content" class="accordion-collapse collapse" aria-labelledby="rapha-2" data-bs-parent="#faqs-rapha">
+          <div class="accordion-body">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum earum quam aliquam nam dicta assumenda dignissimos quasi minus odit at.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="rapha-3">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rapha-3-content" aria-expanded="false" aria-controls="rapha-3-content">
+            Saving Medical History Record
+          </button>
+        </h2>
+        <div id="rapha-3-content" class="accordion-collapse collapse" aria-labelledby="rapha-3" data-bs-parent="#faqs-rapha">
+          <div class="accordion-body">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum earum quam aliquam nam dicta assumenda dignissimos quasi minus odit at.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQS Data Collection -->
+    <h1 class="fs-3 text-center"><strong>Data Privacy</strong></h1>
+    <hr>
+    <div class="accordion accordion-flush" id="faqs-data">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="data-1">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#data-1-content" aria-expanded="false" aria-controls="data-1-content">
+            Data Collection
+          </button>
+        </h2>
+        <div id="data-1-content" class="accordion-collapse collapse" aria-labelledby="data-1" data-bs-parent="#faqs-data">
+          <div class="accordion-body">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum earum quam aliquam nam dicta assumenda dignissimos quasi minus odit at.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="data-2">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#data-2-content" aria-expanded="false" aria-controls="data-2-content">
+            Data Transmission
+          </button>
+        </h2>
+        <div id="data-2-content" class="accordion-collapse collapse" aria-labelledby="data-2" data-bs-parent="#faqs-data">
+          <div class="accordion-body">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum earum quam aliquam nam dicta assumenda dignissimos quasi minus odit at.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="data-3">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#data-3-content" aria-expanded="false" aria-controls="data-3-content">
+            Storing Medical Record Data
+          </button>
+        </h2>
+        <div id="data-3-content" class="accordion-collapse collapse" aria-labelledby="rapha-3" data-bs-parent="#faqs-data">
+          <div class="accordion-body">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum earum quam aliquam nam dicta assumenda dignissimos quasi minus odit at.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="py-5 text-white">
+  <h1 class="display-5 text-center"><strong>Contact Us</strong></h1>
+  <div class="container py-5">
+    <div class="row d-flex align-items-center">
+      <div class="col-md-6 text-md-center">
+        <h2 class="fs-3 pb-2"><strong>Address</strong></h2>
+        <p class="fs-5">Don Mariano Marcos Memorial State University</p>
+        <p class="fs-5">College of Information Technology</p>
+        <p class="fs-5">Catbangen, City of San Fernando, La Union</p>
+      </div>
+      <div class="col-md-6">
+        <h2 class="fs-3 text-center"><strong>Get In Touch</strong></h2>
+        <form action="">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" aria-labelledby="name">
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="email" aria-labelledby="emailaddress">
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea name="message" id="message" rows="5" class="form-control" aria-labelledby="message"></textarea>
+          </div>
+          <div class="mb-3">
+            <input type="submit" value="Send" class="form-control btn btn-lg btn-block btn-primary">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+{% endblock content %}

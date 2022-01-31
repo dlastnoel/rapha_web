@@ -1,0 +1,157 @@
+{% extends 'base/in_main.html' %}
+{% load static %}
+
+
+{% block content %}
+<main class="col-md-10 ms-auto m-md-0 ms-lg-auto mt-3 pl-5">
+  <div class="mt-3">
+    <h2>{{ title }}</h2>
+  </div>
+  <hr>
+  <!-- Dashboard Cards -->
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card text-dark bg-warning mb-3">
+        <div class="card-body d-flex justify-content-center align-items-center gap-3">
+          <div>
+            <i class="fas fa-user-injured fa-3x"></i>
+          </div>
+          <div>
+            <h3>55</h3>
+            <h5>INCOMING PATIENTS</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-success mb-3">
+        <div class="card-body d-flex justify-content-center align-items-center gap-3">
+          <div>
+            <i class="fas fa-heartbeat fa-3x"></i>
+          </div>
+          <div>
+            <h3>44</h3>
+            <h5>OUTGOING PATIENTS</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-primary mb-3">
+        <div class="card-body d-flex justify-content-center align-items-center gap-3">
+          <div>
+            <i class="fas fa-medkit fa-3x"></i>
+          </div>
+          <div>
+            <h3>33</h3>
+            <h5>CONSULTED PATIENTS</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-danger mb-3">
+        <div class="card-body d-flex justify-content-center align-items-center gap-3">
+          <div>
+            <i class="fas fa-ban fa-3x"></i>
+          </div>
+          <div>
+            <h3>33</h3>
+            <h5>CANCELLED PATIENTS</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-3">
+      <h2 class="fs-4 text-center">Departments List</h2>
+      <ul class="list-group mt-2">
+        <li class="list-group-item d-flex justify-content-between p-3">
+          <span class="fs-5">Family Medicine</span>
+          <span class="badge bg-rapha-secondary">18</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between p-3">
+          <span class="fs-5">Internal Medicine</span>
+          <span class="badge bg-rapha-secondary">13</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between p-3">
+          <span class="fs-5">Physical Rehabilitation</span>
+          <span class="badge bg-rapha-secondary">12</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between p-3">
+          <span class="fs-5">Pediatrics</span>
+          <span class="badge bg-rapha-secondary">10</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between p-3">
+          <span class="fs-5">Total</span>
+          <span class="badge bg-rapha-secondary">53</span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <div>
+        <canvas id="appointmentChart"></canvas>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <h2 class="fs-4 text-center">General Patients' Symptoms</h2>
+      <div class="chart-container m-auto d-flex justify-content-center align-items-center">
+        <canvas id="patientStatus"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card text-white bg-primary my-5">
+        <div class="card-header">
+          <h5>COVID 19 Update</h5>
+        </div>
+        <div class="card-body">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto impedit praesentium eum quibusdam velit in, ea beatae incidunt ullam provident eius commodi rem inventore ipsa totam obcaecati at porro? Necessitatibus, modi incidunt, odio distinctio, tempora nemo nostrum quasi sunt dolorum soluta consequuntur aspernatur vero architecto cum reiciendis sint repellendus quae?
+        </div>
+        <div class="card-footer">
+          <h5 class="fs-5">Source: Department of Health</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h5 class="my-5">Currently Admitted Covid Patients</h5>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="card text-dark bg-warning mb-3">
+            <div class="card-body d-flex justify-content-center flex-column align-items-center gap-3">
+              <h3>12</h3>
+              <h5>Asymptomatic</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-dark bg-info mb-3">
+            <div class="card-body d-flex justify-content-center flex-column align-items-center gap-3">
+              <h3>13</h3>
+              <h5>Symptomatic</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-white bg-rapha-secondary mb-3">
+            <div class="card-body d-flex justify-content-center flex-column align-items-center gap-3">
+              <h3>5</h3>
+              <h5>Mild</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-white bg-danger mb-3">
+            <div class="card-body d-flex justify-content-center flex-column align-items-center gap-3">
+              <h3>3</h3>
+              <h5>Critical</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content%}

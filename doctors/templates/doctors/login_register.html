@@ -1,0 +1,146 @@
+{% extends 'base/out_main.html' %}
+{% load static %}
+
+{% block content %}
+  <main id="login-register" class="d-flex flex-column vh-100 justify-content-center align-items-center">
+    {% include 'base/out_nav.html' %}
+     <!-- Landing Page -->
+     <div class="w-100 h-75 overflow-auto">
+      <div class="container">
+        {% if title == 'Login' %}
+        <div class="row">
+          <div class="col-md-6 col-sm-12 text-center">
+            <img src="{% static 'img/rapha_logo.png' %}" alt="" class="img img-fluid pt-5">
+            <h1 class="display-5"><strong>Your Medical Friend</strong></h1>
+          </div>
+          <div class="col-md-6 col-sm-12 my-bg-color text-white px-5 py-4">
+            <h3 class="fs-3 text-center">Login</h3>
+            {% if messages %}
+              {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <div class="alert alert-danger" role="alert">
+                {% elif message.tags == 'success' %}
+                <div class="alert alert-success" role="alert">
+                {% endif %}
+                {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+            <form action="{% url 'login' %}" method="POST">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" name="username" id="username" class="form-control">
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Passsword</label>
+                <input type="password" name="password" id="password" class="form-control">
+              </div>
+              <div class="mb-3 text-center">
+                <input type="submit" value="Login" class="btn btn-block w-100 btn-lg btn-primary mb-3">
+                <a href="{% url 'register' %}" class="btn btn-block w-100 btn-lg btn-info mb-3">Register Here</a>
+                <a href="{% url 'reset_password' %}" class="text-warning fs-5 mr-5">Forgot Passsword?</a>
+              </div>
+            </form>
+          </div>
+        </div>
+        {% else %}
+          <form action="{% url 'register' %}" method="POST">
+            <div class="row">
+              <div class="col-md-6 col-sm-12 my-bg-color text-white px-5 py-4">
+                <h3 class="fs-3 text-center">
+                  Register &nbsp;&nbsp;
+                  <span>
+                    <small>
+                      <a href="" data-bs-toggle="modal" data-bs-target="#registration-guide">
+                        <i class="fas fa-question-circle"></i>
+                      </a>
+                    </small>
+                  </span>
+                </h3>
+                {% csrf_token %}
+                <div class="mb-2">
+                  <label for="specialization">{{ doctor_form.specialization.label }}</label>
+                  {{ doctor_form.specialization }}
+                </div>
+                <div class="mb-2">
+                  <label for="first_name" class="form-label">{{ user_form.first_name.label }}</label>
+                  {{ user_form.first_name }}
+                </div>
+                <div class="mb-2">
+                  <label for="middle_name" class="form-label">{{ doctor_form.middle_name.label }}</label>
+                  {{ doctor_form.middle_name }}
+                </div>
+                <div class="mb-2">
+                  <label for="last_name" class="form-label">{{ user_form.last_name.label }}</label>
+                  {{ user_form.last_name }}
+                </div>
+                <div class="mb-2">
+                  <label for="username" class="form-label">{{ user_form.username.label }}</label>
+                  {{ user_form.username }}
+                </div>
+                <div class="mb-2">
+                  <label for="address" class="form-label">{{ doctor_form.address.label }}</label>
+                  {{ doctor_form.address }}
+                </div>
+                <div class="mb-2">
+                  <label for="email" class="form-label">{{ user_form.email.label }}</label>
+                  {{ user_form.email }}
+                </div>
+                <div class="mb-2">
+                  <label for="contact" class="form-label">Contact Number</label>
+                  {{ doctor_form.contact }}
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-12 my-bg-color text-white px-5 py-4"> 
+                <div class="mb-2">
+                  <label for="short_bio" class="form-label">{{ doctor_form.short_bio.label }}</label>
+                  {{ doctor_form.short_bio }}
+                </div>
+                <div class="mb-2">
+                  <label for="schedule" class="form-label">{{ doctor_form.schedule.label }}</label>
+                  {{ doctor_form.schedule }}
+                </div>
+                <div class="mb-2">
+                  <label for="password1" class="form-label">{{ user_form.password1.label }}</label>
+                  {{ user_form.password1 }}
+                  <div class="invalid-feedback">
+                    {{ user_form.password1.errors }}
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="password2" class="form-label">Confirm Password</label>
+                  {{ user_form.password2 }}
+                </div>
+                <div class="mb-3 text-center">
+                  <input type="submit" value="Register" class="btn btn-block w-100 btn-lg btn-primary mb-3">
+                </div>
+              <div>
+            </div>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  </main>
+
+  <div class="modal fade" id="registration-guide" tabindex="-1" aria-labelledby="registration-guideLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="registration-guideLabel">Registration Guide</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ul>
+            <li>{{ user_form.username.help_text }}</li>
+          </ul>
+          {{ user_form.password1.help_text }}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

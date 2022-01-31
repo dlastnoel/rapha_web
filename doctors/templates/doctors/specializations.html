@@ -1,0 +1,115 @@
+{% extends 'base/in_main.html' %}
+{% load static %}
+
+{% block content %}
+<main class="col-md-10 ms-auto mt-3 pl-5">
+  <div class="d-flex justify-content-between mt-3">
+    <h2>{{ title }}</h2>
+    <span>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-show">
+        Add
+      </button>
+    </span>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      <table id="doctor-table" class="table table-light table-borderless table-striped">
+        <thead>
+          <tr>
+              <th>ID</th>
+              <th>Specialization</th>
+              <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for specialization in specializations %}
+          <tr>
+            <td>{{ specialization.id }}</td>
+            <td>{{ specialization.field }}</td>
+            <td>
+              <a href="{% url 'edit-specialization' specialization.id %}" class="text-primary" href=""><i class="fas fa-edit"></i></a>
+              &nbsp;
+              <a href="" id="{{ specialization.id }}"class="delete-sp-button text-primary" data-bs-toggle="modal" data-bs-target="#modal-delete"><i class="fas fa-trash"></i></a>
+            </td>
+          </tr>
+          {% endfor %}
+      </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal Show -->
+  <div class="modal fade" id="modal-show" tabindex="-1" aria-labelledby="modal-show" aria-hidden="true">
+    <div class="modal-dialog">
+      <form method="POST" action="
+      {% if function == 'edit' %}
+        {% url 'edit-specialization' active_specialization.id %}
+      {% endif %}">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Specialization</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              {% csrf_token %}
+              {{ specialization_form }}
+            </form>
+          </div>
+          <div class="modal-footer">
+            {% if function == 'add' %}
+              <input type="submit" value="Add" class="btn btn-primary">
+            {% else %}
+              <input type="submit" value="Update" class="btn btn-primary">
+            {% endif %}
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Delete -->
+  <div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="delete-modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="delete" action="{% url 'delete-specialization' 123 %}">
+          {% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Delete Specialization</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h4>Confirm delete?</h4>
+          </div>
+          <div class="modal-footer">
+            <input type="submit" value="Yes" class="btn btn-primary">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  {% if function == 'add' %}
+  <script>
+    const triggerDelete = document.getElementsByClassName('delete-sp-button');
+    for(let i=0; i < triggerDelete.length; i++) {
+      triggerDelete[i].addEventListener('click', ()=> {
+        const deleteForm = document.getElementById('delete');
+        formAction = deleteForm.action;
+        deleteForm.action = formAction.replace(/.{0,4}$/, '') + triggerDelete[i].id + '/';
+      })
+    }
+  </script>
+  {% elif function == 'edit' %}
+  <script>
+    window.addEventListener('load', (event) => {
+      // const sp_modal = document.querySelector('#modal-show');
+      const sp_modal = new bootstrap.Modal(document.getElementById('modal-show'));
+      sp_modal.show();
+    })
+  </script>
+  {% endif %}
+
+{% endblock content %}

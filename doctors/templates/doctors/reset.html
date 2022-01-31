@@ -1,0 +1,36 @@
+{% extends 'base/out_main.html' %}
+{% load static %}
+
+{% block content %}
+<main id="login-register" class="d-flex flex-column vh-100 justify-content-center align-items-center">
+  {% include 'base/out_nav.html' %}
+   <!-- Landing Page -->
+   <div class="w-100 h-75 overflow-auto">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-sm-12 my-bg-color text-white px-5 py-4">
+          <h3 class="fs-3 text-center">Enter New Password</h3>
+          <form method="POST">
+            {% csrf_token %}
+            <p>Please enter your new password twice so we can verify you typed it in correctly</p>
+            {{ form.as_p }}
+            <input type="submit" value="Send" class="btn btn-block w-100 btn-lg btn-primary mb-3">
+          </form>
+        </div>
+        <div class="col-md-6 col-sm-12 text-center">
+          <img src="{% static 'img/rapha_logo.png' %}" alt="" class="img img-fluid pt-5">
+          <h1 class="display-5"><strong>Your Medical Friend</strong></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+  window.addEventListener('load', (event) => {
+    const inputs = document.querySelectorAll('input');
+    for (let i = 0; i < inputs.length; i++) {
+      inputs[i].classList.add('form-control');
+    }
+    });
+</script>
+{% endblock content %}
