@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-gbtj@+i##$2q_7#mo3u_b8)h(pnk*a)z($+)wav*($c82h4z5l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.4', '127.0.0.1', '192.168.100.18']
+ALLOWED_HOSTS = ['192.168.1.4', '127.0.0.1', '192.168.100.18',
+                 '192.168.43.143', '192.168.52.1', '192.168.1.4', '192.168.200.180', ]
 
 
 # Application definition
@@ -39,7 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'doctors.apps.DoctorsConfig'
+    'doctors.apps.DoctorsConfig',
+    'clients.apps.ClientsConfig',
+    'patients.apps.PatientsConfig',
+
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
