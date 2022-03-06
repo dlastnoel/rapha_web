@@ -356,6 +356,17 @@ class Endocrine(models.Model):
 
 class Musculoskeletal(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    joints_muscle_pain = models.BooleanField()
+    stiffness = models.BooleanField()
+    motion_limitation = models.BooleanField()
+    muscle_atrophy = models.BooleanField()
+    muscle_hypertrophy = models.BooleanField()
+    none = models.BooleanField()
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+
+class Neurologic(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     numbness = models.BooleanField()
     weakness = models.BooleanField()
     needle_sensation = models.BooleanField()
@@ -363,16 +374,5 @@ class Musculoskeletal(models.Model):
     changes_in_memory = models.BooleanField()
     tremors = models.BooleanField()
     seizures = models.BooleanField()
-    neurologic_none = models.BooleanField()
-    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-
-
-class Neurologic(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    joints_muscle_pain = models.BooleanField()
-    stiffness = models.BooleanField()
-    motion_limitation = models.BooleanField()
-    muscle_atrophy = models.BooleanField()
-    muscle_hypertrophy = models.BooleanField()
     none = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
