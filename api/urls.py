@@ -52,5 +52,15 @@ urlpatterns = [
          name='add-musculoskeletal'),
     path('add-neurologic/', views.addNeurologic,
          name='add-neurologic'),
+    # path('add-patient-checkup/', views.addPatientCheckup,
+    #      name='add-patient-checkup'),
+    path('get-doctors/', views.getDoctors, name='get-doctors'),
+    path('get-doctor/', views.getDoctor, name='get-doctor'),
+    path('get-schedule/', views.getSchedule, name='get-schedule'),
+    path('get-slot/', views.getSlot, name='get-slot'),
+    path('get-appointments/', views.getDoctorAppointments, name='get-appointments'),
+    path('create-appointment/', views.createAppointment,
+         name='create-appointment'),
+    # path('set-limit/', views.setScheduleLimit, name='set-limit'),
 
 ]

@@ -6,8 +6,8 @@
   <h2>{{ title }}</h2>
   <hr>
 
-  <form method="POST" action="{% url 'edit-doctor'%}" enctype="multipart/form-data">
-  {% csrf_token %}
+  <form method="POST" action="{% url 'edit-doctor' %}" enctype="multipart/form-data">
+    {% csrf_token %}
     <div class="row">
       <div class="col-md-12">
         <label for="profile_image">{{ doctor_form.profile_image.label }}</label>
@@ -52,10 +52,6 @@
         <div class="mb-2">
           <label for="short_bio" class="form-label">{{ doctor_form.short_bio.label }}</label>
           {{ doctor_form.short_bio }}
-        </div>
-        <div class="mb-2">
-          <label for="schedule" class="form-label">{{ doctor_form.schedule.label }}</label>
-          {{ doctor_form.schedule }}
         </div>
         <div class="mb-2">
           <label for="password1" class="form-label">{{ user_form.password1.label }}</label>

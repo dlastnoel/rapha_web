@@ -1,0 +1,103 @@
+{% extends 'base/in_main.html' %}
+{% load static %}
+
+{% block content %}
+<main class="col-md-10 ms-auto m-md-0 ms-lg-auto mt-3 pl-5">
+  <div class="mt-3">
+    <h2>{{ title }}</h2>
+  </div>
+  <div class="row gutters-sm">
+    <div class="col-md-4 mb-3">
+      <div class="container">
+        <div class="card border-0">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center">
+              <img src="{{ doctor.profile_image.url }}" alt="Admin" class="circled-profile" width="350">
+              <div class="mt-3">
+                <h4>{{ doctor.first_name }}&nbsp;{{ doctor.middle_name|slice:'1' }}.&nbsp;{{doctor.last_name}}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card border-0 mt-3">
+          <div class="p-3">
+            <p class="text-justify">
+              {{ doctor.short_bio }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="container-fluid">
+        <div class="card mb-3 border-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <h6 class="mb-0 display-3">Hi! I'm Dr. {{ doctor.last_name }}</h6>
+              </div>
+            </div>
+            <hr class="text-muted">
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Department</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{ doctor.specialization }}
+              </div>
+              <hr class="text-muted">
+              <div class="mb-3">
+                <h6>Schedule</h6>
+              </div>
+              {% for schedule in schedules %}
+              <div class="row">
+                <div class="col-sm-3 my-2">
+                  <h6 class="mb-0">{{ schedule.weekday }}(s)</h6>
+                </div>
+                <div class="col-sm-9 my-1 text-secondary d-flex justify-content-start">
+                  {{ schedule.start|time:'h:i A'}} - {{ schedule.end|time:'h:i: A'}}
+                  {% if schedule.id == active_schedule.id %}
+                  <button type="button" class="btn btn-sucess m-0 ms-5 p-1" disabled
+                    href="{% url 'edit-schedule' schedule.id %}">Edit</button>
+                  {% else %}
+                  <a class="btn btn-success m-0 ms-5 p-1" href="{% url 'edit-schedule' schedule.id %}">Edit</a>
+                  {% if schedule.start is not None %}
+                  <a class="btn btn-danger m-0 ms-3 p-1" href="{% url 'reset-schedule' schedule.id %}">Reset</a>
+                  {% endif %}
+                  {% endif %}
+                </div>
+              </div>
+              {% endfor %}
+              <hr class="text-muted">
+              <div class="row">
+                <div class="container w-100">
+                  {% if active_id != 0 %}
+                  <form method="post" action="{% url 'edit-schedule' active_id %}">
+                    {% csrf_token %}
+                    <div class="col-md-12 mt-2">
+                      <label for="Weekday">{{ schedule_form.weekday.label }}</label>
+                      {{ schedule_form.weekday}}
+                    </div>
+                    <div class="col-md-12 mt-2">
+                      <label for="Start">{{ schedule_form.start.label }}</label>
+                      {{ schedule_form.start}}
+                    </div>
+                    <div class="col-md-12 mt-2">
+                      <label for="End">{{ schedule_form.end.label }}</label>
+                      {{ schedule_form.end}}
+                    </div>
+                    <div class="col-md-12 my-3">
+                      <div class="d-flex justify-content-end">
+                        <input type="submit" value="Update" class="btn btn-block btn-primary px-5">
+                      </div>
+                    </div>
+                  </form>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock content %}

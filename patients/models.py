@@ -5,6 +5,7 @@ from random import choice
 import uuid
 from django.db import models
 from clients.models import Client
+# from doctors.models import Doctor
 
 # Create your models here.
 
@@ -32,6 +33,7 @@ class Patient(models.Model):
 
 class ChiefComplaint(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     cough = models.BooleanField()
     pain = models.BooleanField()
     weakness = models.BooleanField()
@@ -46,6 +48,7 @@ class ChiefComplaint(models.Model):
 
 class PresentIllnessImage(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     illness_image = models.ImageField(
         null=True, blank=True, upload_to='illnesses/')
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
@@ -57,6 +60,9 @@ class PresentIllness(models.Model):
         ('moderate', 'Moderate'),
         ('severe', 'Severe')
     )
+    patient = models.ForeignKey(
+        Patient, on_delete=models.CASCADE, null=True, blank=True)
+    unicode = models.CharField(max_length=300, null=True)
     symptoms_started = models.DateField(blank=True)
     how_often = models.CharField(max_length=200)
     how_long = models.CharField(max_length=200)
@@ -81,6 +87,7 @@ class PresentIllness(models.Model):
 
 class ChildhoodIllness(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     measles = models.BooleanField()
     mumps = models.BooleanField()
     rubella = models.BooleanField()
@@ -93,6 +100,7 @@ class ChildhoodIllness(models.Model):
 
 class AdultIllness(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     diabetes = models.BooleanField()
     hypertension = models.BooleanField()
     stroke = models.BooleanField()
@@ -107,6 +115,7 @@ class AdultIllness(models.Model):
 
 class HistoryOfImmunization(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     surgeries = models.TextField(null=True, blank=True)
     medical_allergies = models.TextField(null=True, blank=True)
     other_allergies = models.TextField(null=True, blank=True)
@@ -135,6 +144,7 @@ class HistoryOfImmunization(models.Model):
 
 class FamilyHistory(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     diabetes = models.BooleanField()
     hypertension = models.BooleanField()
     stroke = models.BooleanField()
@@ -157,6 +167,7 @@ class PersonalAndSocialHistory(models.Model):
     )
 
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     phyiscal_activity = models.TextField(null=True, blank=True)
     healthy_foods = models.TextField(null=True, blank=True)
     course_year_levl = models.CharField(max_length=255, null=True, blank=True)
@@ -192,6 +203,7 @@ class FunctionalHistory(models.Model):
         ('25%', '25%')
     )
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     assistive_walking = models.CharField(
         max_length=50, null=True, blank=True, choices=ASSISTIVE_DEVICE)
     drive_own = models.CharField(
@@ -218,6 +230,7 @@ class FunctionalHistory(models.Model):
 
 class GeneralSystem(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     fever = models.BooleanField()
     fatigue = models.BooleanField()
     weight_change = models.BooleanField()
@@ -228,6 +241,7 @@ class GeneralSystem(models.Model):
 
 class SkinProblem(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     rashes = models.BooleanField()
     lumps = models.BooleanField()
     sores = models.BooleanField()
@@ -241,6 +255,7 @@ class SkinProblem(models.Model):
 
 class Heent(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     headache = models.BooleanField()
     dizziness = models.BooleanField()
     lightheadedness = models.BooleanField()
@@ -270,6 +285,7 @@ class Heent(models.Model):
 
 class Breast(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     breast_lumps = models.BooleanField()
     nipple_discharge = models.BooleanField()
     bleeding = models.BooleanField()
@@ -281,6 +297,7 @@ class Breast(models.Model):
 
 class Pulmonary(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     cough = models.BooleanField()
     sputum = models.BooleanField()
     bloody_sputum = models.BooleanField()
@@ -292,6 +309,7 @@ class Pulmonary(models.Model):
 
 class Cardiovascular(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     chest_pain = models.BooleanField()
     shortness_of_breath = models.BooleanField()
     palpitations = models.BooleanField()
@@ -305,6 +323,7 @@ class Cardiovascular(models.Model):
 
 class Gastrointestinal(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     changes_in_appetite = models.BooleanField()
     nausea = models.BooleanField()
     vomitting = models.BooleanField()
@@ -320,6 +339,7 @@ class Gastrointestinal(models.Model):
 
 class Genitourinary(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     painful_urination = models.BooleanField()
     increased_decreased_frequency = models.BooleanField()
     bloody_urine = models.BooleanField()
@@ -330,6 +350,7 @@ class Genitourinary(models.Model):
 
 class Gynecologic(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     pregnancies = models.CharField(max_length=5, null=True, blank=True)
     miscarriages = models.CharField(max_length=5, null=True, blank=True)
     last_period = models.TextField(null=True, blank=True)
@@ -346,6 +367,7 @@ class Gynecologic(models.Model):
 
 class Endocrine(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     hot_or_cold = models.BooleanField()
     fatigue = models.BooleanField()
     changes_hair_skin = models.BooleanField()
@@ -356,6 +378,7 @@ class Endocrine(models.Model):
 
 class Musculoskeletal(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     joints_muscle_pain = models.BooleanField()
     stiffness = models.BooleanField()
     motion_limitation = models.BooleanField()
@@ -367,6 +390,7 @@ class Musculoskeletal(models.Model):
 
 class Neurologic(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    unicode = models.CharField(max_length=300, null=True)
     numbness = models.BooleanField()
     weakness = models.BooleanField()
     needle_sensation = models.BooleanField()

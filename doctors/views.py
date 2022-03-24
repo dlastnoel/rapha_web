@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from . forms import *
+from datetime import datetime, date, timedelta
 
 
 def loginUser(request):
@@ -59,7 +60,6 @@ def registerUser(request):
             doctor.middle_name = doctor_data['middle_name']
             doctor.address = doctor_data['address']
             doctor.contact = doctor_data['contact']
-            doctor.schedule = doctor_data['schedule']
             doctor.short_bio = doctor_data['short_bio']
             doctor.save()
 
@@ -68,6 +68,7 @@ def registerUser(request):
             return redirect('login')
 
         else:
+            print(doctor_form.errors)
             messages.error(
                 request, 'An error has occurred during registration')
 
@@ -81,6 +82,11 @@ def registerUser(request):
 
 @login_required(login_url='login')
 def dashboard(request):
+    slot = Slot.objects.get(id=1)
+    if slot.limit == date.today():
+        slot.limit = date.today() + timedelta(days=14)
+        slot.save()
+    print(slot.limit)
     title = 'Dashboard'
     is_admin = request.user.is_superuser
     doctor = request.user.doctor
@@ -129,6 +135,10 @@ def doctorProfile(request, pk):
     is_admin = request.user.is_superuser
     doctor = Doctor.objects.get(id=pk)
     nav_active = 'nav-active'
+    if request.method == 'POST':
+        print('Hello World')
+    else:
+        print('Hello World')
     context = {
         'title': title,
         'doctor': doctor,
@@ -136,6 +146,80 @@ def doctorProfile(request, pk):
         'nav_active': nav_active
     }
     return render(request, 'doctors/view.html', context)
+
+
+@login_required(login_url='login')
+def viewSchedule(request):
+    title = 'Manage Schedule'
+    profile = request.user.doctor
+    doctor = Doctor.objects.get(id=profile.id)
+    active_id = 0
+    schedules = Schedule.objects.filter(doctor=profile.id)
+    schedule_form = ScheduleForm()
+    is_admin = request.user.is_superuser
+    nav_active = 'nav-active'
+
+    context = {
+        'title': title,
+        'doctor': doctor,
+        'is_admin': is_admin,
+        'nav_active': nav_active,
+        'active_id': active_id,
+        'schedule_form': schedule_form,
+        'schedules': schedules,
+    }
+    return render(request, 'doctors/schedule.html', context)
+
+
+@login_required(login_url='login')
+def editSchedule(request, pk):
+    title = 'Manage Schedule'
+    profile = request.user.doctor
+    doctor = Doctor.objects.get(id=profile.id)
+    active_schedule = Schedule.objects.get(id=pk)
+    active_id = active_schedule.id
+    schedules = Schedule.objects.all()
+    schedule_form = ScheduleForm(instance=active_schedule)
+    is_admin = request.user.is_superuser
+    nav_active = 'nav-active'
+
+    if request.method == 'POST':
+        mutable = request.POST._mutable
+        request.POST._mutable = True
+        request.POST['doctor'] = profile.id
+        request.POST['start'] = datetime.strptime(
+            request.POST['start'], "%H:%M").strftime("%I:%M %p")
+        request.POST['end'] = datetime.strptime(
+            request.POST['end'], "%H:%M").strftime("%I:%M %p")
+        request.POST._mutable = mutable
+        schedule_form = ScheduleForm(request.POST, instance=active_schedule)
+        if schedule_form.is_valid():
+            schedule_form.save()
+        else:
+            print(schedule_form.errors)
+        return redirect('schedule')
+
+    context = {
+        'title': title,
+        'doctor': doctor,
+        'is_admin': is_admin,
+        'nav_active': nav_active,
+        'active_schedule': active_schedule,
+        'active_id': active_id,
+        'schedule_form': schedule_form,
+        'schedules': schedules,
+    }
+    return render(request, 'doctors/schedule.html', context)
+
+
+@login_required(login_url='login')
+def resetSchedule(request, pk):
+    active_schedule = Schedule.objects.get(id=pk)
+    active_schedule.start = None
+    active_schedule.end = None
+    active_schedule.save()
+
+    return redirect('schedule')
 
 
 @login_required(login_url='login')

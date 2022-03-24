@@ -26,8 +26,9 @@ SECRET_KEY = 'django-insecure-gbtj@+i##$2q_7#mo3u_b8)h(pnk*a)z($+)wav*($c82h4z5l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.4', '127.0.0.1', '192.168.100.18',
-                 '192.168.43.143', '192.168.52.1', '192.168.1.4', '192.168.200.180', ]
+ALLOWED_HOSTS = ['192.168.1.4', '127.0.0.1', '192.168.100.18', '192.168.43.143',
+                 '192.168.52.1', '192.168.1.4', '192.168.200.180', '192.168.52.1',
+                 '192.168.209.180', ]
 
 
 # Application definition
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'doctors.apps.DoctorsConfig',
     'clients.apps.ClientsConfig',
     'patients.apps.PatientsConfig',
+    'appointments.apps.AppointmentsConfig',
 
     'rest_framework',
 ]
@@ -113,11 +115,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
+TIME_INPUT_FORMATS = ['%I:%M %p']
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
+
+USE_L10N = False
 
 USE_TZ = True
 

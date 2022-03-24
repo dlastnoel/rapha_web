@@ -12,12 +12,12 @@
       <table id="doctor-table" class="table table-light table-borderless table-striped">
         <thead>
           <tr>
-              <th>Full Name</th>
-              <th>Status</th>
-              <th>Action</th>
+            <th>Full Name</th>
+            <th>Status</th>
+            <th>Action</th>
           </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
           {% for doctor_data in doctors %}
           {% if doctor_data.id != doctor.id %}
           <tr>
@@ -32,12 +32,13 @@
             <td>
               <a href="{% url 'doctor-profile' doctor_data.id %}"><i class="fas fa-eye"></i></a>
               &nbsp;
-              <a href="" id="{{ doctor_data.id }}"class="delete-dr-button text-primary" data-bs-toggle="modal" data-bs-target="#modal-delete"><i class="fas fa-trash"></i></a>
+              <a href="" id="{{ doctor_data.id }}" class="delete-dr-button text-primary" data-bs-toggle="modal"
+                data-bs-target="#modal-delete"><i class="fas fa-trash"></i></a>
             </td>
           </tr>
           {% endif %}
           {% endfor %}
-      </tbody>
+        </tbody>
       </table>
     </div>
   </div>
@@ -46,17 +47,16 @@
       <table id="doctor-table" class="table table-light table-borderless table-striped">
         <thead>
           <tr>
-              <th>Specialization</th>
-              <th>Full Name</th>
-              <th>Address</th>
-              <th>Contact</th>
-              <th>Email</th>
-              <th>Schedule</th>
-              <th>Status</th>
-              <th>Action</th>
+            <th>Specialization</th>
+            <th>Full Name</th>
+            <th>Address</th>
+            <th>Contact</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Action</th>
           </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
           {% for doctor_data in doctors %}
           {% if doctor_data.id != doctor.id %}
           <tr>
@@ -65,7 +65,6 @@
             <td>{{ doctor_data.address }}</td>
             <td>{{ doctor_data.contact }}</td>
             <td>{{ doctor_data.email }}</td>
-            <td>{{ doctor_data.schedule }}</td>
             <td>
               {% if doctor_data.is_activated %}
               <a href="{% url 'deactivate' doctor_data.id %}" class="fw-bold text-primary">ACTIVATED</a>
@@ -76,12 +75,13 @@
             <td>
               <a href="{% url 'doctor-profile' doctor_data.id %}"><i class="fas fa-eye"></i></a>
               &nbsp;
-              <a href="" id="{{ doctor_data.id }}"class="delete-dr-button text-primary" data-bs-toggle="modal" data-bs-target="#modal-delete"><i class="fas fa-trash"></i></a>
+              <a href="" id="{{ doctor_data.id }}" class="delete-dr-button text-primary" data-bs-toggle="modal"
+                data-bs-target="#modal-delete"><i class="fas fa-trash"></i></a>
             </td>
           </tr>
           {% endif %}
           {% endfor %}
-      </tbody>
+        </tbody>
       </table>
     </div>
   </div>
@@ -111,20 +111,20 @@
 
 <script>
   const triggerDelete = document.getElementsByClassName('delete-dr-button');
-  for(let i=0; i < triggerDelete.length; i++) {
-    triggerDelete[i].addEventListener('click', ()=> {
+  for (let i = 0; i < triggerDelete.length; i++) {
+    triggerDelete[i].addEventListener('click', () => {
       const deleteForm = document.getElementById('delete');
       formAction = deleteForm.action;
       deleteForm.action = formAction.replace(/.{0,4}$/, '') + triggerDelete[i].id + '/';
     })
   }
 
-  $(document).ready(function() {
-    var table = $('#doctor-table').DataTable( {
-        responsive: true
-    } );
- 
-    new $.fn.dataTable.FixedHeader( table );
-} );
+  $(document).ready(function () {
+    var table = $('#doctor-table').DataTable({
+      responsive: true
+    });
+
+    new $.fn.dataTable.FixedHeader(table);
+  });
 </script>
 {% endblock content%}

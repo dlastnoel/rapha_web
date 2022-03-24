@@ -2,6 +2,7 @@ from ast import Mult
 from operator import ge, ne
 import jwt
 import json
+from datetime import date, timedelta
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, parser_classes
 from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
@@ -319,3 +320,88 @@ def addNeurologic(request):
     else:
         print(neurologic.errors)
     return Response(neurologic.data)
+
+
+@api_view(['GET'])
+def getDoctors(request):
+    doctors = Doctor.objects.order_by('specialization')
+    serializer = DoctorSerializer(doctors, many=True)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getDoctor(request):
+    doctor = Doctor.objects.get(id=request.data['id'])
+    serializer = DoctorSerializer(doctor, many=False)
+
+    return Response(serializer.data)
+
+
+# @api_view(['POST'])
+# def addPatientCheckup(request):
+#     patient_data = PatientCheckupSerializer(data=request.data)
+#     if patient_data.is_valid():
+#         patient_data.save()
+
+#     return Response(patient_data.data)
+
+@api_view(['POST'])
+def createAppointment(request):
+    serializer = AppointmentSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    else:
+        print(serializer.errors)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getDoctorAppointments(request):
+    appointments = Appoinment.objects.filter(doctor=request.data['doctor'])
+    serializer = AppointmentSerializer(appointments, many=True)
+
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getSlot(request):
+    slot = Slot.objects.get(id=1)
+    serializer = SlotSerializer(slot, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getSchedule(request):
+    schedule = Schedule.objects.filter(start__isnull=False).filter(
+        end__isnull=False).filter(doctor=request.data['id'])
+    # schedule = Schedule.objects.exclude(
+    #     start__isnull=True).exclude(end__isnull=True).get(doctor=request.data['id'])
+    serializer = ScheduleSerializer(schedule, many=True)
+
+    return Response(serializer.data)
+
+
+# @api_view(['POST'])
+# def setScheduleLimit(request):
+#     # mutable = request.data._mutable
+#     # request.data._mutable = True
+#     request.data['limit'] = date.today() + timedelta(days=14)
+#     # request.data._mutable = mutable
+#     doctor = Doctor.objects.get(id=request.data['id'])
+#     serializer = ScheduleLimiterSerializer(instance=doctor, data=request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+#     else:
+#         print(serializer.errors)
+
+#     return Response(serializer.data)
+
+# @api_view(['POST'])
+# def getScheduleLimit(request):
+#   doctor = Doctor.objects.get(id=request.data['id'])
+#   serializer = DoctorSerializer(doctor, many=False)
+
+#   return Response(serializer.data)

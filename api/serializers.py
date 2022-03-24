@@ -1,7 +1,9 @@
 from dataclasses import fields
 from rest_framework import serializers
 from clients.models import Client
+from doctors.models import Doctor, Specialization, Schedule, Slot
 from patients.models import *
+from appointments.models import Appoinment
 
 
 class ContactTokenSerializer(serializers.ModelSerializer):
@@ -146,3 +148,58 @@ class NeurologicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Neurologic
         fields = '__all__'
+
+
+class SpecializationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Specialization
+        fields = '__all__'
+
+
+class DoctorSerializer(serializers.ModelSerializer):
+    specialization = SpecializationSerializer(many=False)
+
+    class Meta:
+        model = Doctor
+        fields = '__all__'
+
+
+# class PatientCheckupSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = PatientCheckup
+#         fields = '__all__'
+
+
+class ScheduleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Schedule
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        representation = super(
+            ScheduleSerializer, self).to_representation(instance)
+        representation['start'] = instance.start.strftime('%I:%M %p')
+        representation['end'] = instance.start.strftime('%I:%M %p')
+        return representation
+
+
+class SlotSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Slot
+        fields = '__all__'
+
+
+class AppointmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Appoinment
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        representation = super(
+            AppointmentSerializer, self).to_representation(instance)
+        if representation['checkup_date'] is not None:
+            representation['checkup_date'] = instance.checkup_date.strftime(
+                '%B %m %Y')
+            representation['checkup_time'] = instance.checkup_time.strftime(
+                '%I:%M %p')
+        return representation
