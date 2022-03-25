@@ -359,10 +359,12 @@ def createAppointment(request):
 
 @api_view(['POST'])
 def getDoctorAppointments(request):
-    appointments = Appoinment.objects.filter(doctor=request.data['doctor'])
+    appointments = Appoinment.objects.filter(
+        doctor=request.data['doctor']).filter(checkup_date=request.data['checkup_date'])
     serializer = AppointmentSerializer(appointments, many=True)
-
-    return Response(serializer.data)
+    if appointments.exists():
+        return Response(serializer.data)
+    return Response()
 
 
 @api_view(['GET'])

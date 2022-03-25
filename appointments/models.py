@@ -19,7 +19,8 @@ class Appoinment(models.Model):
         Doctor, on_delete=models.CASCADE, null=True, blank=True)
     unicode = models.CharField(max_length=300, null=True)
     checkup_date = models.DateField(null=True, blank=True)
-    checkup_time = models.TimeField(null=True, blank=True)
+    checkup_start = models.TimeField(null=True, blank=True)
+    checkup_end = models.TimeField(null=True, blank=True)
     status = models.CharField(
         max_length=100,  choices=status_choices, default='none')
     statement = models.TextField(null=True, blank=True)
