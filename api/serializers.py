@@ -179,7 +179,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
         representation = super(
             ScheduleSerializer, self).to_representation(instance)
         representation['start'] = instance.start.strftime('%I:%M %p')
-        representation['end'] = instance.start.strftime('%I:%M %p')
+        representation['end'] = instance.end.strftime('%I:%M %p')
         return representation
 
 
