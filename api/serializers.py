@@ -36,6 +36,12 @@ class ChiefComplaintSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class PresentIllnessImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PresentIllnessImage
+        fields = '__all__'
+
+
 class PresentIllnessSerializer(serializers.ModelSerializer):
     class Meta:
         model = PresentIllness
@@ -200,6 +206,8 @@ class AppointmentSerializer(serializers.ModelSerializer):
         if representation['checkup_date'] is not None:
             # representation['checkup_date'] = instance.checkup_date.strftime(
             #     '%B %d, %Y')
+            representation['created_at'] = instance.created_at.strftime(
+                '%b %d, %Y')
             representation['checkup_start'] = instance.checkup_start.strftime(
                 '%I:%M %p')
             representation['checkup_end'] = instance.checkup_end.strftime(

@@ -57,8 +57,11 @@ class Schedule(models.Model):
     end = models.TimeField(null=True, blank=True)
 
     def __str__(self):
-        return self.doctor.first_name
+        return '' + self.weekday + '(s) - ' + self.doctor.first_name
 
 
 class Slot(models.Model):
     limit = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return self.limit

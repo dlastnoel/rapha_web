@@ -76,6 +76,14 @@ def getClient(request):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+def getClients(request):
+    client = Client.objects.all()
+    serializer = ClientSerializer(client, many=True)
+
+    return Response(serializer.data)
+
+
 @api_view(['POST'])
 def addPatient(request):
     token = jwt.decode(request.data['client'],
@@ -113,7 +121,18 @@ def getPatient(request):
     serializer = PatientSerializer(patient, many=False)
     return Response(serializer.data)
 
+# --------------------
+# --------------------
+# MEDICAL API ENDPOINTS
+# --------------------
+# --------------------
 
+
+# --------------------
+# --------------------
+# ADD CALLERS
+# --------------------
+# --------------------
 @api_view(['POST'])
 def addChiefComplaint(request):
     chief_complaint = ChiefComplaintSerializer(data=request.data)
@@ -320,6 +339,204 @@ def addNeurologic(request):
     else:
         print(neurologic.errors)
     return Response(neurologic.data)
+
+
+# --------------------
+# --------------------
+# GET CALLERS
+# --------------------
+# --------------------
+
+@api_view(['POST'])
+def getChiefComplaint(request):
+    chief_complaint = ChiefComplaint.objects.get(
+        unicode=request.data['unicode'])
+    serializer = ChiefComplaintSerializer(chief_complaint, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getPresentIllnessImage(request):
+    present_illness_image = PresentIllnessImage.objects.get(
+        unicode=request.data['unicode'])
+    serializer = PresentIllnessImageSerializer(
+        present_illness_image, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getPresentIllness(request):
+    presennt_illness = PresentIllness.objects.get(
+        unicode=request.data['unicode'])
+    serializer = PresentIllnessSerializer(presennt_illness, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getChildhoodIllness(request):
+    childhood_image = ChildhoodIllness.objects.get(
+        unicode=request.data['unicode'])
+    serializer = ChildhoodSerializer(childhood_image, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getAdultIllness(request):
+    adult_illness = AdultIllness.objects.get(unicode=request.data['unicode'])
+    serializer = AdultIllnessSerialzer(adult_illness, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getHistoryOfImmunization(request):
+    history_of_immunization = HistoryOfImmunization.objects.get(
+        unicode=request.data['unicode'])
+    serializer = HistoryOfImmunizationSerialzer(
+        history_of_immunization, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getFamilyHistory(request):
+    family_history = FamilyHistory.objects.get(unicode=request.data['unicode'])
+    serializer = FamilyHistory(family_history, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getPersonalAndSocialHistory(request):
+    personal_and_social_history = PersonalAndSocialHistory.objects.get(
+        unicode=request.data['unicode'])
+    serializer = PersonalAndSocialHistory(
+        personal_and_social_history, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getFunctionalHistory(request):
+    functional_history = FunctionalHistory.objects.get(
+        unicode=request.data['unicode'])
+    serializer = FunctionalHistorySerializer(functional_history, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getGeneralSystem(request):
+    general_system = GeneralSystem.objects.get(unicode=request.data['unicode'])
+    serializer = GeneralSystemSerializer(general_system, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getSkinProblem(request):
+    skin_problem = SkinProblem.objects.get(unicode=request.data['unicode'])
+    serializer = SkinProblemSerializer(skin_problem, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getHeent(request):
+    heent = Heent.objects.get(unicode=request.data['unicode'])
+    serializer = HeentSerializer(heent, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getBreast(request):
+    breast = Breast.objects.get(unicode=request.data['unicode'])
+    serializer = BreastSerializer(breast, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getPulmonary(request):
+    pulmonary = Pulmonary.objects.get(unicode=request.data['unicode'])
+    serializer = PulmonarySerializer(pulmonary, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getCardiovascular(request):
+    cardiovascular = Cardiovascular.objects.get(
+        unicode=request.data['unicode'])
+    serializer = CardiovascularSerializer(cardiovascular, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getGastrointestinal(request):
+    gastrointestinal = Gastrointestinal.objects.get(
+        unicode=request.data['unicode'])
+    serializer = GastrointestinalSerializer(gastrointestinal, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getGenitourinary(request):
+    genitourinary = Genitourinary.objects.get(unicode=request.data['unicode'])
+    serializer = GenitourinarySerializer(genitourinary, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getGynecologic(request):
+    gynecologic = Gynecologic.objects.get(unicode=request.data['unicode'])
+    serializer = Gynecologic(gynecologic, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getEndocrine(request):
+    endocrine = Endocrine.objects.get(unicode=request.data['unicode'])
+    serializer = EndocrineSerializer(endocrine, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getMusculosketal(request):
+    musculoskeletal = Musculoskeletal.objects.get(
+        unicode=request.data['unicode'])
+    serializer = MusculoskeletalSerializer(musculoskeletal, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getNeurologic(request):
+    neurologic = Neurologic.objects.get(unicode=request.data['unicode'])
+    serializer = NeurologicSerializer(neurologic, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getPatientData(request):
+    patient_data = Appoinment.objects.filter(
+        patient=request.data['patient'])
+    serializer = AppointmentSerializer(patient_data, many=True)
+
+    return Response(serializer.data)
+
+## _____________ END ______________ ##
 
 
 @api_view(['GET'])
