@@ -405,7 +405,7 @@ def getHistoryOfImmunization(request):
 @api_view(['POST'])
 def getFamilyHistory(request):
     family_history = FamilyHistory.objects.get(unicode=request.data['unicode'])
-    serializer = FamilyHistory(family_history, many=False)
+    serializer = FamilyHistorySerializer(family_history, many=False)
 
     return Response(serializer.data)
 
@@ -414,7 +414,7 @@ def getFamilyHistory(request):
 def getPersonalAndSocialHistory(request):
     personal_and_social_history = PersonalAndSocialHistory.objects.get(
         unicode=request.data['unicode'])
-    serializer = PersonalAndSocialHistory(
+    serializer = PersonalAndSocialHistorySerializer(
         personal_and_social_history, many=False)
 
     return Response(serializer.data)
@@ -498,7 +498,7 @@ def getGenitourinary(request):
 @api_view(['POST'])
 def getGynecologic(request):
     gynecologic = Gynecologic.objects.get(unicode=request.data['unicode'])
-    serializer = Gynecologic(gynecologic, many=False)
+    serializer = GynecologicSerializer(gynecologic, many=False)
 
     return Response(serializer.data)
 
