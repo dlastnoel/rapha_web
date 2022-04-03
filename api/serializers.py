@@ -203,11 +203,11 @@ class AppointmentSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super(
             AppointmentSerializer, self).to_representation(instance)
+        representation['created_at'] = instance.created_at.strftime(
+            '%B %d, %Y - %I:%M %p')
         if representation['checkup_date'] is not None:
             # representation['checkup_date'] = instance.checkup_date.strftime(
             #     '%B %d, %Y')
-            representation['created_at'] = instance.created_at.strftime(
-                '%b %d, %Y')
             representation['checkup_start'] = instance.checkup_start.strftime(
                 '%I:%M %p')
             representation['checkup_end'] = instance.checkup_end.strftime(

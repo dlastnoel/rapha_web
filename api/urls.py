@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+# from doctors import views as doctor_views
 
 urlpatterns = [
     path('', views.overview, name='api-overview'),
@@ -11,6 +12,7 @@ urlpatterns = [
     path('add-patient/', views.addPatient, name='add-patient'),
     path('get-patients/', views.getPatients, name='get-patients'),
     path('get-patient/', views.getPatient, name='get-patient'),
+    # path('pdf_download/', doctor_views.ViewPDF.as_view(), name="pdf_download"),
 
     # Medical endpoints
     # Add

@@ -67,7 +67,8 @@ class PresentIllness(models.Model):
     how_often = models.CharField(max_length=200)
     how_long = models.CharField(max_length=200)
     describe = models.TextField()
-    severity = models.CharField(max_length=50, choices=SEVERITY),
+    severity = models.CharField(
+        max_length=50, choices=SEVERITY, null=True, blank=True)
     affects_walking = models.BooleanField()
     affects_bathing = models.BooleanField()
     affects_dressing = models.BooleanField()
@@ -78,9 +79,9 @@ class PresentIllness(models.Model):
     affects_sex = models.BooleanField()
     affects_bowel = models.BooleanField()
     affects_urination = models.BooleanField()
-    activities_worse = models.TextField(null=True, blank=True),
-    activities_improves = models.TextField(null=True, blank=True),
-    other_symptoms = models.TextField(null=True, blank=True),
+    activities_worse = models.TextField(null=True, blank=True)
+    activities_improves = models.TextField(null=True, blank=True)
+    other_symptoms = models.TextField(null=True, blank=True)
     medications = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
@@ -168,9 +169,9 @@ class PersonalAndSocialHistory(models.Model):
 
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     unicode = models.CharField(max_length=300, null=True)
-    phyiscal_activity = models.TextField(null=True, blank=True)
+    physical_activity = models.TextField(null=True, blank=True)
     healthy_foods = models.TextField(null=True, blank=True)
-    course_year_levl = models.CharField(max_length=255, null=True, blank=True)
+    course_year_level = models.CharField(max_length=255, null=True, blank=True)
     occupation = models.CharField(max_length=255, null=True, blank=True)
     sticks_per_day = models.CharField(max_length=5, null=True, blank=True)
     years_smoking = models.CharField(max_length=5, null=True, blank=True)

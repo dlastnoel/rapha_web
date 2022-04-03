@@ -5,6 +5,44 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from . forms import *
 from datetime import datetime, date, timedelta
+# from io import BytesIO
+# from django.http import HttpResponse
+# from django.template.loader import get_template
+# from django.views import View
+# from xhtml2pdf import pisa
+
+
+# def render_to_pdf(template_src, context_dict={}):
+#     template = get_template(template_src)
+#     html = template.render(context_dict)
+#     result = BytesIO()
+#     pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+#     if not pdf.err:
+#         return HttpResponse(result.getvalue(), content_type='application/pdf')
+#     return None
+
+
+# data = {
+#     "company": "Dennnis Ivanov Company",
+#     "address": "123 Street name",
+#     "city": "Vancouver",
+#     "state": "WA",
+#     "zipcode": "98663",
+
+
+#     "phone": "555-555-2345",
+#     "email": "youremail@dennisivy.com",
+#     "website": "dennisivy.com",
+# }
+
+# # Opens up page as PDF
+
+
+# class ViewPDF(View):
+#     def get(self, request, *args, **kwargs):
+
+#         pdf = render_to_pdf('doctors/pdf_template.html', data)
+#         return HttpResponse(pdf, content_type='application/pdf')
 
 
 def loginUser(request):

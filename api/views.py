@@ -531,7 +531,7 @@ def getNeurologic(request):
 @api_view(['POST'])
 def getPatientData(request):
     patient_data = Appoinment.objects.filter(
-        patient=request.data['patient'])
+        patient=request.data['patient']).order_by('-created_at')
     serializer = AppointmentSerializer(patient_data, many=True)
 
     return Response(serializer.data)

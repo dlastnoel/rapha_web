@@ -62,6 +62,3 @@ class Schedule(models.Model):
 
 class Slot(models.Model):
     limit = models.DateField(null=True, blank=True)
-
-    def __str__(self):
-        return self.limit
