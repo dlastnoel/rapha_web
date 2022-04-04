@@ -58,6 +58,8 @@ urlpatterns = [
          name='add-musculoskeletal'),
     path('add-neurologic/', views.addNeurologic,
          name='add-neurologic'),
+    path('add-patient-data/', views.addPatientData,
+         name='add-patient-data'),
 
     # Medical endpoints
     # Get

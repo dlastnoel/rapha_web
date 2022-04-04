@@ -341,6 +341,19 @@ def addNeurologic(request):
     return Response(neurologic.data)
 
 
+@api_view(['POST'])
+def addPatientData(request):
+    patient = Appoinment.objects.get(
+        id=request.data['id'])
+    serializer = AppointmentSerializer(instance=patient, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    else:
+        print(serializer.errors)
+
+    return Response(serializer.data)
+
+
 # --------------------
 # --------------------
 # GET CALLERS
