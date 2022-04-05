@@ -1,0 +1,43 @@
+{% extends 'base/in_main.html' %}
+{% load static %}
+
+{% block content %}
+<main class="col-md-10 ms-auto m-md-0 ms-lg-auto mt-3 pl-5">
+  <div class="d-flex justify-content-between mt-3"">
+    <h2>{{ title }}</h2>
+    <span>
+      <button type=" button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-show">
+    Admit
+    </button>
+    </span>
+  </div>
+  <hr>
+  <div class="row d-sm-none d-none d-md-flex">
+    <div class="col-md-12">
+    </div>
+  </div>
+
+  <!-- Modal Show -->
+  <div class="modal fade" id="modal-show" tabindex="-1" aria-labelledby="modal-show" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <form method="POST" action="{% url 'admit' patient.id %}">
+        {% csrf_token %}
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Admit</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {{ admit }}
+      </form>
+    </div>
+    <div class="modal-footer">
+      <input type="submit" value="Admit" class="btn btn-primary">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+  </form>
+  </div>
+  </div>
+</main>
+{% endblock content%}

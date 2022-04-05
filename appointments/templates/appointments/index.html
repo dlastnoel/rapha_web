@@ -1,0 +1,85 @@
+{% extends 'base/in_main.html' %}
+{% load static %}
+
+{% block content %}
+<main class="col-md-10 ms-auto m-md-0 ms-lg-auto mt-3 pl-5">
+  <div class="mt-3">
+    <h2>{{ title }}</h2>
+  </div>
+  <hr>
+  <div class="row d-sm-block d-md-none">
+    <div class="col-md-12">
+      <table id="doctor-table" class="table table-light table-borderless table-striped">
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row d-sm-none d-none d-md-flex">
+    <div class="col">
+      <h5>Appointments Today</h5>
+      <table id="doctor-table" class="table table-light table-borderless table-striped">
+        <thead>
+          <tr>
+            <th>Sex</th>
+            <th>Birthday</th>
+            <th>Age</th>
+            <th>Checkup Date</th>
+            <th>Checkup Time</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for patient_today, age_today in appointments_today %}
+          <tr>
+            <td>{{ patient_today.patient.sex|capfirst }}</td>
+            <td>{{ patient_today.patient.date_of_birth }}</td>
+            <td>{{ age_today }}</td>
+            <td>{{ patient_today.checkup_date }}</td>
+            <td>{{ patient_today.checkup_start }} - {{ patient_today.checkup_end }}</td>
+            <td>{{ patient_today.status }}</td>
+            <td><a href="{% url 'appointment' patient_today.id %}"><i class="fas fa-eye"></i></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <h5>Appointments Tomorrow</h5>
+      <table id="doctor-table" class="table table-light table-borderless table-striped">
+        <thead>
+          <tr>
+            <th>Sex</th>
+            <th>Birthday</th>
+            <th>Age</th>
+            <th>Checkup Date</th>
+            <th>Checkup Time</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for patient_today, age_today in appointments_today %}
+          <tr>
+            <td>{{ patient_today.patient.sex|capfirst }}</td>
+            <td>{{ patient_today.patient.date_of_birth }}</td>
+            <td>{{ age_today }}</td>
+            <td>{{ patient_today.checkup_date }}</td>
+            <td>{{ patient_today.checkup_start }} - {{ patient_today.checkup_end }}</td>
+            <td>{{ patient_today.status }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+{% endblock content%}

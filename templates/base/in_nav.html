@@ -10,9 +10,17 @@
         <i class="fas fa-tachometer-alt"></i> Dashboard
       </a>
     </li>
+    <li>
+      <a href="{% url 'appointments' %}" class="nav-link text-white fs-5
+          {% if title == 'Appointments' %}
+            {{ nav_active }}
+          {% endif %}">
+        <i class="fas fa-calendar"></i> Appointments
+      </a>
+    </li>
     {% if is_admin %}
     <li>
-      <a href="patients.html" class="nav-link text-white fs-5
+      <a href="{% url 'patients'%}" class="nav-link text-white fs-5
       {% if title == 'Patients' %}
         {{ nav_active }}
       {% endif %}">

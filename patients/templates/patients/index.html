@@ -18,6 +18,33 @@
           </tr>
         </thead>
         <tbody>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row d-sm-none d-none d-md-block">
+    <div class="col-md-12">
+      <table id="doctor-table" class="table table-light table-borderless table-striped">
+        <thead>
+          <tr>
+            <th>Sex</th>
+            <th>Birthday</th>
+            <th>Age</th>
+            <th>Status</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for patient, age in zipped %}
+          <tr>
+            <td>{{ patient.patient.sex|capfirst }}</td>
+            <td>{{ patient.patient.date_of_birth }}</td>
+            <td>{{ age }}</td>
+            <td>{{ patient.status }}</td>
+            <td>{{ patient.created_at }}</td>
+          </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>

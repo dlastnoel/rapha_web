@@ -135,3 +135,10 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+
+
+# Patient Illness Images # 
+static/img/illnesses
+
+# Doctor Profile Pictures # 
+static/img/doctors
