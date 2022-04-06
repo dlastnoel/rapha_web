@@ -110,7 +110,7 @@ def admitPatient(request, pk):
     patient = Appoinment.objects.get(id=pk)
     if request.method == 'POST':
         admit = AppointmentForm(
-            request.POST, instance=request.user, prefix='usr-in')
+            request.POST, instance=patient)
         if admit.is_valid():
             patient.status = 'done'
             patient.save()
