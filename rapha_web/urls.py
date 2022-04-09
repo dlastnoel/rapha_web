@@ -20,6 +20,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 
+admin.site.site_header = "Rapha Database Admnistration"
+admin.site.site_title = "Rapha"
+admin.site.index_title = "Rapha Database Administration"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('doctors.urls')),

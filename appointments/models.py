@@ -25,3 +25,6 @@ class Appoinment(models.Model):
         max_length=100,  choices=status_choices, default='none')
     statement = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    def __str__(self):
+        return '(' + self.unicode + ') - ' + str(self.patient.date_of_birth) + ' - ' + str(self.patient.sex)

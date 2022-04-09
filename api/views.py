@@ -354,13 +354,28 @@ def addPatientData(request):
     return Response(serializer.data)
 
 
+@api_view(['POST'])
+def cancelPatientData(request):
+    patient = Appoinment.objects.get(
+        id=request.data['id'])
+
+    patient.doctor = None
+    patient.checkup_date = None
+    patient.checkup_start = None
+    patient.checkup_end = None
+    patient.save()
+
+    serializer = AppointmentSerializer(patient, many=False)
+    return Response(serializer.data)
+
+
 # --------------------
 # --------------------
 # GET CALLERS
 # --------------------
 # --------------------
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getChiefComplaint(request):
     chief_complaint = ChiefComplaint.objects.get(
         unicode=request.data['unicode'])
@@ -369,7 +384,7 @@ def getChiefComplaint(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getPresentIllnessImage(request):
     present_illness_image = PresentIllnessImage.objects.get(
         unicode=request.data['unicode'])
@@ -379,7 +394,7 @@ def getPresentIllnessImage(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getPresentIllness(request):
     presennt_illness = PresentIllness.objects.get(
         unicode=request.data['unicode'])
@@ -388,7 +403,7 @@ def getPresentIllness(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getChildhoodIllness(request):
     childhood_image = ChildhoodIllness.objects.get(
         unicode=request.data['unicode'])
@@ -397,7 +412,7 @@ def getChildhoodIllness(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getAdultIllness(request):
     adult_illness = AdultIllness.objects.get(unicode=request.data['unicode'])
     serializer = AdultIllnessSerialzer(adult_illness, many=False)
@@ -405,7 +420,7 @@ def getAdultIllness(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getHistoryOfImmunization(request):
     history_of_immunization = HistoryOfImmunization.objects.get(
         unicode=request.data['unicode'])
@@ -415,7 +430,7 @@ def getHistoryOfImmunization(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getFamilyHistory(request):
     family_history = FamilyHistory.objects.get(unicode=request.data['unicode'])
     serializer = FamilyHistorySerializer(family_history, many=False)
@@ -423,8 +438,9 @@ def getFamilyHistory(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getPersonalAndSocialHistory(request):
+    print(request.data['unicode'])
     personal_and_social_history = PersonalAndSocialHistory.objects.get(
         unicode=request.data['unicode'])
     serializer = PersonalAndSocialHistorySerializer(
@@ -433,7 +449,7 @@ def getPersonalAndSocialHistory(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getFunctionalHistory(request):
     functional_history = FunctionalHistory.objects.get(
         unicode=request.data['unicode'])
@@ -442,7 +458,7 @@ def getFunctionalHistory(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getGeneralSystem(request):
     general_system = GeneralSystem.objects.get(unicode=request.data['unicode'])
     serializer = GeneralSystemSerializer(general_system, many=False)
@@ -450,7 +466,7 @@ def getGeneralSystem(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getSkinProblem(request):
     skin_problem = SkinProblem.objects.get(unicode=request.data['unicode'])
     serializer = SkinProblemSerializer(skin_problem, many=False)
@@ -458,7 +474,7 @@ def getSkinProblem(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getHeent(request):
     heent = Heent.objects.get(unicode=request.data['unicode'])
     serializer = HeentSerializer(heent, many=False)
@@ -466,7 +482,7 @@ def getHeent(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getBreast(request):
     breast = Breast.objects.get(unicode=request.data['unicode'])
     serializer = BreastSerializer(breast, many=False)
@@ -474,7 +490,7 @@ def getBreast(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getPulmonary(request):
     pulmonary = Pulmonary.objects.get(unicode=request.data['unicode'])
     serializer = PulmonarySerializer(pulmonary, many=False)
@@ -482,7 +498,7 @@ def getPulmonary(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getCardiovascular(request):
     cardiovascular = Cardiovascular.objects.get(
         unicode=request.data['unicode'])
@@ -491,7 +507,7 @@ def getCardiovascular(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getGastrointestinal(request):
     gastrointestinal = Gastrointestinal.objects.get(
         unicode=request.data['unicode'])
@@ -500,7 +516,7 @@ def getGastrointestinal(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getGenitourinary(request):
     genitourinary = Genitourinary.objects.get(unicode=request.data['unicode'])
     serializer = GenitourinarySerializer(genitourinary, many=False)
@@ -508,7 +524,7 @@ def getGenitourinary(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getGynecologic(request):
     gynecologic = Gynecologic.objects.get(unicode=request.data['unicode'])
     serializer = GynecologicSerializer(gynecologic, many=False)
@@ -516,7 +532,7 @@ def getGynecologic(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getEndocrine(request):
     endocrine = Endocrine.objects.get(unicode=request.data['unicode'])
     serializer = EndocrineSerializer(endocrine, many=False)
@@ -524,7 +540,7 @@ def getEndocrine(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getMusculosketal(request):
     musculoskeletal = Musculoskeletal.objects.get(
         unicode=request.data['unicode'])
@@ -533,7 +549,7 @@ def getMusculosketal(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getNeurologic(request):
     neurologic = Neurologic.objects.get(unicode=request.data['unicode'])
     serializer = NeurologicSerializer(neurologic, many=False)
@@ -541,7 +557,7 @@ def getNeurologic(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getPatientData(request):
     patient_data = Appoinment.objects.filter(
         patient=request.data['patient']).order_by('-created_at')
@@ -552,7 +568,7 @@ def getPatientData(request):
 ## _____________ END ______________ ##
 
 
-@api_view(['GET'])
+@ api_view(['GET'])
 def getDoctors(request):
     doctors = Doctor.objects.order_by('specialization')
     serializer = DoctorSerializer(doctors, many=True)
@@ -560,7 +576,7 @@ def getDoctors(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getDoctor(request):
     doctor = Doctor.objects.get(id=request.data['id'])
     serializer = DoctorSerializer(doctor, many=False)
@@ -576,7 +592,7 @@ def getDoctor(request):
 
 #     return Response(patient_data.data)
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def createAppointment(request):
     serializer = AppointmentSerializer(data=request.data)
     if serializer.is_valid():
@@ -587,7 +603,7 @@ def createAppointment(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getDoctorAppointments(request):
     appointments = Appoinment.objects.filter(
         doctor=request.data['doctor']).filter(checkup_date=request.data['checkup_date'])
@@ -597,7 +613,7 @@ def getDoctorAppointments(request):
     return Response()
 
 
-@api_view(['GET'])
+@ api_view(['GET'])
 def getSlot(request):
     slot = Slot.objects.get(id=1)
     serializer = SlotSerializer(slot, many=False)
@@ -605,7 +621,7 @@ def getSlot(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@ api_view(['POST'])
 def getSchedule(request):
     schedule = Schedule.objects.filter(start__isnull=False).filter(
         end__isnull=False).filter(doctor=request.data['id'])

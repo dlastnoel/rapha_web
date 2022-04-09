@@ -216,7 +216,7 @@ def editSchedule(request, pk):
     doctor = Doctor.objects.get(id=profile.id)
     active_schedule = Schedule.objects.get(id=pk)
     active_id = active_schedule.id
-    schedules = Schedule.objects.all()
+    schedules = Schedule.objects.filter(doctor=profile.id)
     schedule_form = ScheduleForm(instance=active_schedule)
     is_admin = request.user.is_superuser
     nav_active = 'nav-active'

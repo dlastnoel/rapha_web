@@ -113,6 +113,9 @@ class AdultIllness(models.Model):
     others = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
+    def __str__(self):
+        return 'unicode: ' + str(self.unicode)
+
 
 class HistoryOfImmunization(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
@@ -142,6 +145,9 @@ class HistoryOfImmunization(models.Model):
     others_test = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
+    def __str__(self):
+        return 'unicode: ' + str(self.unicode)
+
 
 class FamilyHistory(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
@@ -156,6 +162,9 @@ class FamilyHistory(models.Model):
     asthma = models.BooleanField()
     others = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    def __str__(self):
+        return 'unicode: ' + str(self.unicode)
 
 
 class PersonalAndSocialHistory(models.Model):
@@ -184,6 +193,9 @@ class PersonalAndSocialHistory(models.Model):
         max_length=50, null=True, blank=True, choices=HOW_OFTEN_DRINKING)
     last_time_drugs = models.CharField(max_length=50, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    def __str__(self):
+        return 'unicode: ' + str(self.unicode)
 
 
 class FunctionalHistory(models.Model):
@@ -228,6 +240,9 @@ class FunctionalHistory(models.Model):
     difficulties_in_verbal = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
+    def __str__(self):
+        return 'unicode: ' + str(self.unicode)
+
 
 class GeneralSystem(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
@@ -238,6 +253,9 @@ class GeneralSystem(models.Model):
     weakness = models.BooleanField()
     none = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    def __str__(self):
+        return 'unicode: ' + str(self.unicode)
 
 
 class SkinProblem(models.Model):
@@ -252,6 +270,9 @@ class SkinProblem(models.Model):
     changes_in_hair_nails = models.BooleanField()
     none = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    def __str__(self):
+        return 'unicode: ' + str(self.unicode)
 
 
 class Heent(models.Model):
@@ -283,6 +304,9 @@ class Heent(models.Model):
     none = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
+    def __str__(self):
+        return 'unicode: ' + str(self.unicode)
+
 
 class Breast(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
@@ -295,6 +319,9 @@ class Breast(models.Model):
     none = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
+    def __str__(self):
+        return 'unicode: ' + str(self.unicode)
+
 
 class Pulmonary(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
@@ -306,6 +333,9 @@ class Pulmonary(models.Model):
     shortness_breath = models.BooleanField()
     none = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    def __str__(self):
+        return 'unicode: ' + str(self.unicode)
 
 
 class Cardiovascular(models.Model):
@@ -320,6 +350,9 @@ class Cardiovascular(models.Model):
     fatigue = models.BooleanField()
     none = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    def __str__(self):
+        return 'unicode: ' + str(self.unicode)
 
 
 class Gastrointestinal(models.Model):
@@ -337,6 +370,9 @@ class Gastrointestinal(models.Model):
     none = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
+    def __str__(self):
+        return 'unicode: ' + str(self.unicode)
+
 
 class Genitourinary(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
@@ -347,6 +383,9 @@ class Genitourinary(models.Model):
     trouble_urination = models.BooleanField()
     none = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    def __str__(self):
+        return 'unicode: ' + str(self.unicode)
 
 
 class Gynecologic(models.Model):
@@ -365,6 +404,9 @@ class Gynecologic(models.Model):
     none = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
+    def __str__(self):
+        return 'unicode: ' + str(self.unicode)
+
 
 class Endocrine(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
@@ -375,6 +417,9 @@ class Endocrine(models.Model):
     shaking = models.BooleanField()
     none = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    def __str__(self):
+        return 'unicode: ' + str(self.unicode)
 
 
 class Musculoskeletal(models.Model):
@@ -387,6 +432,9 @@ class Musculoskeletal(models.Model):
     muscle_hypertrophy = models.BooleanField()
     none = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    def __str__(self):
+        return 'unicode: ' + str(self.unicode)
 
 
 class Neurologic(models.Model):
@@ -401,3 +449,6 @@ class Neurologic(models.Model):
     seizures = models.BooleanField()
     none = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    def __str__(self):
+        return 'unicode: ' + str(self.unicode)
