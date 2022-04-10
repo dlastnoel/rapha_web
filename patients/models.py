@@ -232,7 +232,7 @@ class FunctionalHistory(models.Model):
     affects_bowel = models.BooleanField()
     affects_urination = models.BooleanField()
     needs_support = models.CharField(
-        max_length=5, null=True, blank=True, choices=DRIVE)
+        max_length=5, null=True, blank=True, choices=SUPPORT)
     assistive_devices = models.TextField(null=True, blank=True)
     difficulties_activities = models.TextField(null=True, blank=True)
     difficulties_assistance = models.TextField(null=True, blank=True)
