@@ -120,6 +120,8 @@ urlpatterns = [
     path('get-appointments/', views.getDoctorAppointments, name='get-appointments'),
     path('create-appointment/', views.createAppointment,
          name='create-appointment'),
+    path('delete-medical-data/', views.deleteMedicalData,
+         name='delete-medical-data'),
     # path('set-limit/', views.setScheduleLimit, name='set-limit'),
 
 ]

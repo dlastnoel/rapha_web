@@ -7,10 +7,13 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, parser_classes
 from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from rest_framework import viewsets
+
+from appointments.views import appointment
 from . serializers import *
 from clients.models import Client
 from patients.models import Patient, PresentIllnessImage
 from patients.forms import PresentIllnessImageForm
+from appointments.models import Appoinment
 from rest_framework import status
 
 
@@ -559,11 +562,23 @@ def getNeurologic(request):
 
 @ api_view(['POST'])
 def getPatientData(request):
-    patient_data = Appoinment.objects.filter(
-        patient=request.data['patient']).order_by('-created_at')
-    serializer = AppointmentSerializer(patient_data, many=True)
+    if request.data['status'] == 'for_appointment':
+        patient_data = Appoinment.objects.filter(
+            patient=request.data['patient']).filter(doctor__isnull=True).order_by('-created_at')
+        serializer = AppointmentSerializer(patient_data, many=True)
+        return Response(serializer.data)
 
-    return Response(serializer.data)
+    if request.data['status'] == 'has_appointment':
+        patient_data = Appoinment.objects.filter(
+            patient=request.data['patient']).filter(doctor__isnull=False).filter(status='none').order_by('-created_at')
+        serializer = AppointmentSerializer(patient_data, many=True)
+        return Response(serializer.data)
+
+    else:
+        patient_data = Appoinment.objects.filter(
+            patient=request.data['patient']).filter(status='done').order_by('-created_at')
+        serializer = AppointmentSerializer(patient_data, many=True)
+        return Response(serializer.data)
 
 ## _____________ END ______________ ##
 
@@ -630,6 +645,73 @@ def getSchedule(request):
     serializer = ScheduleSerializer(schedule, many=True)
 
     return Response(serializer.data)
+
+
+@ api_view(['POST'])
+def deleteMedicalData(request):
+    code = request.data['unicode']
+    chief_complaint = ChiefComplaint.objects.get(
+        unicode=code)
+    present_illness_image = PresentIllnessImage.objects.get(
+        unicode=code)
+    present_illness = PresentIllness.objects.get(
+        unicode=code)
+    childhood_illness = ChildhoodIllness.objects.get(
+        unicode=code)
+    adult_illness = AdultIllness.objects.get(
+        unicode=code)
+    history_of_immunization = HistoryOfImmunization.objects.get(
+        unicode=code)
+    family_history = FamilyHistory.objects.get(
+        unicode=code)
+    personal_and_social_history = PersonalAndSocialHistory.objects.get(
+        unicode=code)
+    functional_history = FunctionalHistory.objects.get(
+        unicode=code)
+    generay_system = GeneralSystem.objects.get(
+        unicode=code)
+    skin_problem = SkinProblem.objects.get(unicode=code)
+    heent = Heent.objects.get(unicode=code)
+    breast = Breast.objects.get(unicode=code)
+    pulmonary = Pulmonary.objects.get(unicode=code)
+    cardiovascular = Cardiovascular.objects.get(
+        unicode=code)
+    gastrointestinal = Gastrointestinal.objects.get(
+        unicode=code)
+    genitourinary = Genitourinary.objects.get(
+        unicode=code)
+    gynecologic = Gynecologic.objects.get(
+        unicode=code)
+    endocrine = Endocrine.objects.get(unicode=code)
+    musculoskeletal = Musculoskeletal.objects.get(
+        unicode=code)
+    neurologic = Neurologic.objects.get(unicode=code)
+    appointment = Appoinment.objects.get(unicode=code)
+
+    chief_complaint.delete()
+    present_illness_image.delete()
+    present_illness.delete()
+    childhood_illness.delete()
+    adult_illness.delete()
+    history_of_immunization.delete()
+    family_history.delete()
+    personal_and_social_history.delete()
+    functional_history.delete()
+    generay_system.delete()
+    skin_problem.delete()
+    heent.delete()
+    breast.delete()
+    pulmonary.delete()
+    cardiovascular.delete()
+    gastrointestinal.delete()
+    genitourinary.delete()
+    gynecologic.delete()
+    endocrine.delete()
+    musculoskeletal.delete()
+    neurologic.delete()
+    appointment.delete()
+
+    return Response('DELETE SUCCESSFUL')
 
 
 # @api_view(['POST'])
