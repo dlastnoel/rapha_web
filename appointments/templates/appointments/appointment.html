@@ -5,11 +5,25 @@
 <main class="col-md-10 ms-auto m-md-0 ms-lg-auto mt-3 pl-5">
   <div class="d-flex justify-content-between mt-3">
     <h2>{{ title }}</h2>
+    {% if today == appointment_date %}
     <span>
-      <button type=" button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-show">
-        Admit
-      </button>
+      <span>
+        <button type=" button" class="btn btn-primary" data-bs-toggle="modal"
+          data-bs-target="#modal-previous-appointments">
+          Previous Appointments
+        </button>
+        {% if patient_appointment.status != 'done' %}
+        <button type=" button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-admit">
+          Admit
+        </button>
+        {% endif %}
+      </span>
     </span>
+    {% else %}
+    <button type=" button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-cancel-appointment">
+      Cancel Appointment and Refer
+    </button>
+    {% endif %}
   </div>
   <hr>
   <div class="row d-sm-none d-none d-md-flex">
@@ -35,7 +49,8 @@
         </div>
       </div>
       <hr>
-      <div class="overflow-auto" style="height: 70vh;">
+      <!-- medical data -->
+      <div class="overflow-auto" style="height: 60vh;">
         <!-- Chief Complaint -->
         <h4>Chief Complaint</h4>
         <ul>
@@ -854,7 +869,8 @@
   </div>
 
   <!-- Modal Show -->
-  <div class="modal fade" id="modal-show" tabindex="-1" aria-labelledby="modal-show" aria-hidden="true">
+  {% if today == appointment_date %}
+  <div class="modal fade" id="modal-admit" tabindex="-1" aria-labelledby="modal-admit" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <form method="POST" action="{% url 'admit' patient_appointment.id %}">
         {% csrf_token %}
@@ -872,8 +888,53 @@
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
     </div>
   </div>
+  {% endif %}
   </form>
   </div>
   </div>
+
+  <div class="modal fade" id="modal-previous-appointments" tabindex="-1" aria-labelledby="modal-previous-appointments"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Previous Appointments</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {% for previous_appointment in previous_appointments %}
+          <a href="{% url 'previous' previous_appointment.id %}" target="blank" class="btn btn-success">
+            {{ previous_appointment.checkup_date }}</a>
+          {% endfor %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal-cancel-appointment" tabindex="-1" aria-labelledby="modal-cancel-appointment"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cancel Appointment and Refer</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'cancel-appointment' patient_appointment.id %}" method="POST">
+            {% csrf_token %}
+            {{ cancel_form }}
+        </div>
+        <div class="modal-footer">
+          <input type="submit" value="Cancel and Refer" class="btn btn-primary">
+          </form>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </main>
 {% endblock content%}

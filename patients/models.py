@@ -182,16 +182,17 @@ class PersonalAndSocialHistory(models.Model):
     healthy_foods = models.TextField(null=True, blank=True)
     course_year_level = models.CharField(max_length=255, null=True, blank=True)
     occupation = models.CharField(max_length=255, null=True, blank=True)
-    sticks_per_day = models.CharField(max_length=5, null=True, blank=True)
-    years_smoking = models.CharField(max_length=5, null=True, blank=True)
-    when_stop_smoking = models.CharField(max_length=50, null=True, blank=True)
-    bottles_per_day = models.CharField(max_length=5, null=True, blank=True)
-    how_often_drinking = models.CharField(max_length=50, null=True, blank=True)
+    sticks_per_day = models.CharField(max_length=255, null=True, blank=True)
+    years_smoking = models.CharField(max_length=255, null=True, blank=True)
+    when_stop_smoking = models.CharField(max_length=255, null=True, blank=True)
+    bottles_per_day = models.CharField(max_length=255, null=True, blank=True)
+    how_often_drinking = models.CharField(
+        max_length=255, null=True, blank=True)
     substance_drugs = models.TextField(null=True, blank=True)
-    when_drugs_used = models.CharField(max_length=50, null=True, blank=True)
+    when_drugs_used = models.CharField(max_length=255, null=True, blank=True)
     how_often_drugs = models.CharField(
-        max_length=50, null=True, blank=True, choices=HOW_OFTEN_DRINKING)
-    last_time_drugs = models.CharField(max_length=50, null=True, blank=True)
+        max_length=255, null=True, blank=True, choices=HOW_OFTEN_DRINKING)
+    last_time_drugs = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
@@ -391,8 +392,8 @@ class Genitourinary(models.Model):
 class Gynecologic(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     unicode = models.CharField(max_length=300, null=True)
-    pregnancies = models.CharField(max_length=5, null=True, blank=True)
-    miscarriages = models.CharField(max_length=5, null=True, blank=True)
+    pregnancies = models.CharField(max_length=255, null=True, blank=True)
+    miscarriages = models.CharField(max_length=255, null=True, blank=True)
     last_period = models.TextField(null=True, blank=True)
     irregular_menstration = models.BooleanField()
     vaginal_bleeding = models.BooleanField()

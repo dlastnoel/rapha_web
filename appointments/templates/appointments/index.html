@@ -64,17 +64,20 @@
             <th>Checkup Date</th>
             <th>Checkup Time</th>
             <th>Status</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          {% for patient_today, age_today in appointments_today %}
+          {% for patient_tomorrow, age_tomorrow in appointments_tomorrow %}
           <tr>
-            <td>{{ patient_today.patient.sex|capfirst }}</td>
-            <td>{{ patient_today.patient.date_of_birth }}</td>
-            <td>{{ age_today }}</td>
-            <td>{{ patient_today.checkup_date }}</td>
-            <td>{{ patient_today.checkup_start }} - {{ patient_today.checkup_end }}</td>
-            <td>{{ patient_today.status }}</td>
+            <td>{{ patient_tomorrow.patient.sex|capfirst }}</td>
+            <td>{{ patient_tomorrow.patient.date_of_birth }}</td>
+            <td>{{ age_tomorrow }}</td>
+            <td>{{ patient_tomorrow.checkup_date }}</td>
+            <td>{{ patient_tomorrow.checkup_start }} - {{ patient_tomorrow.checkup_end }}</td>
+            <td>{{ patient_tomorrow.status }}</td>
+
+            <td><a href="{% url 'appointment' patient_tomorrow.id %}"><i class="fas fa-eye"></i></a></td>
           </tr>
           {% endfor %}
         </tbody>
