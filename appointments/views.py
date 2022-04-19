@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from . forms import AppointmentForm, CancelAppointmentForm
 import requests
+from doctors.models import Doctor
 import json
 
 from patients.models import AdultIllness, Breast, Cardiovascular, ChiefComplaint, PersonalAndSocialHistory, ChildhoodIllness, Endocrine, FamilyHistory, FunctionalHistory, Gastrointestinal, GeneralSystem, Genitourinary, Heent, HistoryOfImmunization, Musculoskeletal, Neurologic, PresentIllness, PresentIllnessImage, Pulmonary, SkinProblem
@@ -239,11 +240,13 @@ def admitPatient(request, pk):
 
 @login_required(login_url='login')
 def cancelAppointment(request, pk):
-    patient = Appoinment.objects.get(id=pk)
+    appointment = Appoinment.objects.get(id=pk)
     globe_id = 'aoxpSMBBaetq5cddAbTBnLtKGo87S7nB'
     globe_secret = '073f862eb7f111301c6a6af605626415a67865a477ab4443937844a341b1ade0'
-    code = patient.patient.client.code
+    code = appointment.patient.client.code
     if request.method == 'POST':
+        doctor = request.user.doctor
+        doctor_refer = Doctor.objects.get(id=request.POST['doctor'])
         response = requests.post(
             'https://developer.globelabs.com.ph/oauth/access_token', params={
                 'app_id': globe_id,
@@ -251,15 +254,16 @@ def cancelAppointment(request, pk):
                 'code': code
             })
         access_token = response.json()['access_token']
-        message = request.POST['message']
+        message_notes = f"Dr. {doctor.first_name} {doctor.last_name} cancelled your appointment that was originally schedule on {appointment.checkup_date} at {appointment.checkup_start}-{appointment.checkup_end} after checking your medical appointment but recommends you to see Dr. {doctor_refer.first_name} {doctor_refer.last_name} of {doctor_refer.specialization.field}. Have a good day!.\nAdditional Message. Dr. {doctor.first_name}  {doctor.last_name} says: \"{request.POST['message']}\""
+
         body = {
             'outboundSMSMessageRequest': {
                 'senderAddress': '3796',
                 'outboundSMSTextMessage': {
-                    'message': request.POST['message']
+                    'message': message_notes
                 }
             },
-            'address': patient.patient.client.contact,
+            'address': appointment.patient.client.contact,
         }
         print(response.json())
         cancel_response = requests.post(
@@ -271,14 +275,14 @@ def cancelAppointment(request, pk):
             headers={
                 'Host': 'devapi.globelabs.com.ph'
             })
-        patient.status = 'none'
-        patient.doctor = None
-        patient.checkup_date = None
-        patient.checkup_start = None
-        patient.checkup_end = None
+        appointment.status = 'none'
+        appointment.doctor = None
+        appointment.checkup_date = None
+        appointment.checkup_start = None
+        appointment.checkup_end = None
+        appointment.save()
         # cancel_response.raise_for_status()
         print(cancel_response.text)
         print(cancel_response.status_code)
         print(cancel_response.url)
-        # print(message)
     return redirect('dashboard')
