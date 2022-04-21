@@ -63,10 +63,10 @@ class PresentIllness(models.Model):
     patient = models.ForeignKey(
         Patient, on_delete=models.CASCADE, null=True, blank=True)
     unicode = models.CharField(max_length=300, null=True)
-    symptoms_started = models.DateField(blank=True)
-    how_often = models.CharField(max_length=200)
-    how_long = models.CharField(max_length=200)
-    describe = models.TextField()
+    symptoms_started = models.DateField(null=True, blank=True)
+    how_often = models.CharField(max_length=20, null=True, blank=True)
+    how_long = models.CharField(max_length=20, null=True, blank=True)
+    describe = models.TextField(null=True, blank=True)
     severity = models.CharField(
         max_length=50, choices=SEVERITY, null=True, blank=True)
     affects_walking = models.BooleanField()
@@ -79,6 +79,7 @@ class PresentIllness(models.Model):
     affects_sex = models.BooleanField()
     affects_bowel = models.BooleanField()
     affects_urination = models.BooleanField()
+    affects_activities = models.TextField(null=True, blank=True)
     activities_worse = models.TextField(null=True, blank=True)
     activities_improves = models.TextField(null=True, blank=True)
     other_symptoms = models.TextField(null=True, blank=True)
