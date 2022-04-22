@@ -51,6 +51,7 @@ class Schedule(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    clinic = models.CharField(max_length=255, null=True, blank=True)
     weekday = models.CharField(
         max_length=100,  choices=weekday_choices)
     start = models.TimeField(null=True, blank=True)

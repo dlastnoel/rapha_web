@@ -55,7 +55,7 @@
                   <h6 class="mb-0">{{ schedule.weekday }}(s)</h6>
                 </div>
                 <div class="col-sm-9 my-1 text-secondary d-flex justify-content-start">
-                  {{ schedule.start|time:'h:i A'}} - {{ schedule.end|time:'h:i: A'}}
+                  {{ schedule.start|time:'h:i A'}} - {{ schedule.end|time:'h:i: A'}} ({{ schedule.clinic }})
                   {% if schedule.id == active_schedule.id %}
                   <button type="button" class="btn btn-sucess m-0 ms-5 p-1" disabled
                     href="{% url 'edit-schedule' schedule.id %}">Edit</button>
@@ -85,6 +85,10 @@
                     <div class="col-md-12 mt-2">
                       <label for="End">{{ schedule_form.end.label }}</label>
                       {{ schedule_form.end}}
+                    </div>
+                    <div class="col-md-12 mt-2">
+                      <label for="Clinic">Clinic</label>
+                      {{ schedule_form.clinic}}
                     </div>
                     <div class="col-md-12 my-3">
                       <div class="d-flex justify-content-end">

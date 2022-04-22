@@ -13,6 +13,3 @@ class Client(models.Model):
         max_length=11, unique=True, null=True, blank=True)
     code = models.TextField(unique=True, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-
-    def __str__(self):
-        return self.username

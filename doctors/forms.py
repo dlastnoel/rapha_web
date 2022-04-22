@@ -47,7 +47,7 @@ class ScheduleForm(ModelForm):
 
     class Meta:
         model = Schedule
-        fields = ['doctor', 'weekday', 'start', 'end']
+        fields = ['doctor', 'weekday', 'start', 'end', 'clinic']
 
     def __init__(self, *args, **kwargs):
         super(ScheduleForm, self).__init__(*args, **kwargs)
