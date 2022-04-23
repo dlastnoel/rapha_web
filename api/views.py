@@ -79,6 +79,14 @@ def getClient(request):
     return Response(serializer.data)
 
 
+@api_view(['POST'])
+def getClientByPatientId(request):
+  client = Client.objects.get(patient=request.data['patient'])
+  serializer = ClientSerializer(client)
+
+  return Response(serializer.data)
+
+
 @api_view(['GET'])
 def getClients(request):
     client = Client.objects.all()

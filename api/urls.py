@@ -8,6 +8,7 @@ urlpatterns = [
     path('save-contact/', views.saveContact, name='save-contact'),
     path('update-client/', views.updateClient, name='update-client'),
     path('get-client/', views.getClient, name='get-client'),
+    path('get-my-client/', views.getClientByPatientId, name='get-my-client'),
     path('get-clients/', views.getClients, name='get-clients'),
     path('add-patient/', views.addPatient, name='add-patient'),
     path('get-patients/', views.getPatients, name='get-patients'),
