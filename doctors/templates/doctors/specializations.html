@@ -14,27 +14,29 @@
   <hr>
   <div class="row">
     <div class="col-md-12">
-      <table id="doctor-table" class="table table-light table-borderless table-striped">
+      <table id="specialization-table" class="table table-light table-borderless table-striped">
         <thead>
           <tr>
-              <th>ID</th>
-              <th>Specialization</th>
-              <th>Action</th>
+            <th>ID</th>
+            <th>Specialization</th>
+            <th>Action</th>
           </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
           {% for specialization in specializations %}
           <tr>
             <td>{{ specialization.id }}</td>
             <td>{{ specialization.field }}</td>
             <td>
-              <a href="{% url 'edit-specialization' specialization.id %}" class="text-primary" href=""><i class="fas fa-edit"></i></a>
+              <a href="{% url 'edit-specialization' specialization.id %}" class="text-primary" href=""><i
+                  class="fas fa-edit"></i></a>
               &nbsp;
-              <a href="" id="{{ specialization.id }}"class="delete-sp-button text-primary" data-bs-toggle="modal" data-bs-target="#modal-delete"><i class="fas fa-trash"></i></a>
+              <a href="" id="{{ specialization.id }}" class="delete-sp-button text-primary" data-bs-toggle="modal"
+                data-bs-target="#modal-delete"><i class="fas fa-trash"></i></a>
             </td>
           </tr>
           {% endfor %}
-      </tbody>
+        </tbody>
       </table>
     </div>
   </div>
@@ -52,21 +54,21 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-              {% csrf_token %}
-              {{ specialization_form }}
-            </form>
-          </div>
-          <div class="modal-footer">
-            {% if function == 'add' %}
-              <input type="submit" value="Add" class="btn btn-primary">
-            {% else %}
-              <input type="submit" value="Update" class="btn btn-primary">
-            {% endif %}
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          </div>
-        </div>
+            {% csrf_token %}
+            {{ specialization_form }}
       </form>
     </div>
+    <div class="modal-footer">
+      {% if function == 'add' %}
+      <input type="submit" value="Add" class="btn btn-primary">
+      {% else %}
+      <input type="submit" value="Update" class="btn btn-primary">
+      {% endif %}
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+  </form>
+  </div>
   </div>
 
   <!-- Modal Delete -->
@@ -94,8 +96,8 @@
   {% if function == 'add' %}
   <script>
     const triggerDelete = document.getElementsByClassName('delete-sp-button');
-    for(let i=0; i < triggerDelete.length; i++) {
-      triggerDelete[i].addEventListener('click', ()=> {
+    for (let i = 0; i < triggerDelete.length; i++) {
+      triggerDelete[i].addEventListener('click', () => {
         const deleteForm = document.getElementById('delete');
         formAction = deleteForm.action;
         deleteForm.action = formAction.replace(/.{0,4}$/, '') + triggerDelete[i].id + '/';
@@ -112,4 +114,4 @@
   </script>
   {% endif %}
 
-{% endblock content %}
+  {% endblock content %}

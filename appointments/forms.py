@@ -17,14 +17,24 @@ class AppointmentForm(ModelForm):
             field.widget.attrs.update({'class': 'form-control'})
 
 
-class CancelAppointmentForm(forms.Form):
+class CancelAndReferAppointmentForm(forms.Form):
     doctor = forms.ChoiceField(label='Doctor')
     message = forms.CharField(widget=forms.Textarea)
 
     def __init__(self, doctor_choices, *args, **kwargs):
         choices = doctor_choices
-        super(CancelAppointmentForm, self).__init__(*args, **kwargs)
+        super(CancelAndReferAppointmentForm, self).__init__(*args, **kwargs)
         self.fields['doctor'].choices = choices
+
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control'})
+
+
+class CancelAppointmentForm(forms.Form):
+    message = forms.CharField(widget=forms.Textarea)
+
+    def __init__(self, *args, **kwargs):
+        super(CancelAppointmentForm, self).__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})

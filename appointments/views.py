@@ -1,12 +1,13 @@
+from site import addsitepackages
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
-from . forms import AppointmentForm, CancelAppointmentForm
+from . forms import AppointmentForm, CancelAndReferAppointmentForm, CancelAppointmentForm
 import requests
 from doctors.models import Doctor
 import json
 
-from patients.models import AdultIllness, Breast, Cardiovascular, ChiefComplaint, PersonalAndSocialHistory, ChildhoodIllness, Endocrine, FamilyHistory, FunctionalHistory, Gastrointestinal, GeneralSystem, Genitourinary, Heent, HistoryOfImmunization, Musculoskeletal, Neurologic, PresentIllness, PresentIllnessImage, Pulmonary, SkinProblem
+from patients.models import *
 from . models import *
 from appointments.models import Appoinment
 from datetime import date, datetime, timedelta
@@ -57,6 +58,35 @@ def appointments(request):
 
 
 @login_required(login_url='login')
+def futureAppointments(request):
+    title = 'Appointments'
+    is_admin = request.user.is_superuser
+    today = date.today()
+    patients = Appoinment.objects.filter(
+        doctor=request.user.doctor).filter(checkup_date__gte=today+timedelta(days=2), checkup_date__lte=today+timedelta(days=14))
+    ages = []
+    i = 0
+
+    while(i < patients.count()):
+        ages.append(today.year - patients[i].patient.date_of_birth.year -
+                    ((today.month, today.day) < (
+                        patients[i].patient.date_of_birth.month, patients[i].patient.date_of_birth.day)))
+        i = i+1
+
+    doctor = request.user.doctor
+    nav_active = 'nav-active'
+    context = {
+        'title': title,
+        'doctor': doctor,
+        'is_admin': is_admin,
+        'nav_active': nav_active,
+        'patients': patients,
+        'appointments': zip(patients, ages),
+    }
+    return render(request, 'appointments/future.html', context)
+
+
+@login_required(login_url='login')
 def appointment(request, pk):
     title = 'Appointments'
     is_admin = request.user.is_superuser
@@ -70,7 +100,8 @@ def appointment(request, pk):
                 doctor.last_name + ' (' + doctor.specialization.field + ')')
         doctor_choices.append(temp)
 
-    cancel_form = CancelAppointmentForm(doctor_choices)
+    cancel_appointment_form = CancelAppointmentForm()
+    cancel_and_refer_form = CancelAndReferAppointmentForm(doctor_choices)
     previous_appointments = Appoinment.objects.filter(patient=patient_appointment.patient).filter(status='done').exclude(
         unicode=patient_appointment.unicode)
     patient = patient_appointment.patient
@@ -120,7 +151,8 @@ def appointment(request, pk):
         'nav_active': nav_active,
         'patient': patient,
         'doctors': doctors,
-        'cancel_form': cancel_form,
+        'cancel_and_refer_form': cancel_and_refer_form,
+        'cancel_appointment_form': cancel_appointment_form,
         'today': today,
         'appointment_date': appointment_date,
         'previous_appointments': previous_appointments,
@@ -246,6 +278,55 @@ def cancelAppointment(request, pk):
     code = appointment.patient.client.code
     if request.method == 'POST':
         doctor = request.user.doctor
+        response = requests.post(
+            'https://developer.globelabs.com.ph/oauth/access_token', params={
+                'app_id': globe_id,
+                'app_secret': globe_secret,
+                'code': code
+            })
+        access_token = response.json()['access_token']
+        message_notes = f"Dr. {doctor.first_name} {doctor.last_name} cancelled your appointment scheduled on {appointment.checkup_date} at {appointment.checkup_start}-{appointment.checkup_end}.\n\nAdditional Message: Dr. {doctor.first_name}  {doctor.last_name} says: \"{request.POST['message']}\""
+
+        body = {
+            'outboundSMSMessageRequest': {
+                'senderAddress': '3796',
+                'outboundSMSTextMessage': {
+                    'message': message_notes
+                }
+            },
+            'address': appointment.patient.client.contact,
+        }
+        print(response.json())
+        cancel_response = requests.post(
+            'https://devapi.globelabs.com.ph/smsmessaging/v1/outbound/21663796/requests',
+            params={
+                'access_token': access_token
+            },
+            json=body,
+            headers={
+                'Host': 'devapi.globelabs.com.ph'
+            })
+        appointment.status = 'none'
+        appointment.doctor = None
+        appointment.checkup_date = None
+        appointment.checkup_start = None
+        appointment.checkup_end = None
+        appointment.save()
+        # cancel_response.raise_for_status()
+        print(cancel_response.text)
+        print(cancel_response.status_code)
+        print(cancel_response.url)
+    return redirect('dashboard')
+
+
+@login_required(login_url='login')
+def cancelAndReferAppointment(request, pk):
+    appointment = Appoinment.objects.get(id=pk)
+    globe_id = 'aoxpSMBBaetq5cddAbTBnLtKGo87S7nB'
+    globe_secret = '073f862eb7f111301c6a6af605626415a67865a477ab4443937844a341b1ade0'
+    code = appointment.patient.client.code
+    if request.method == 'POST':
+        doctor = request.user.doctor
         doctor_refer = Doctor.objects.get(id=request.POST['doctor'])
         response = requests.post(
             'https://developer.globelabs.com.ph/oauth/access_token', params={
@@ -254,7 +335,7 @@ def cancelAppointment(request, pk):
                 'code': code
             })
         access_token = response.json()['access_token']
-        message_notes = f"Dr. {doctor.first_name} {doctor.last_name} cancelled your appointment that was originally schedule on {appointment.checkup_date} at {appointment.checkup_start}-{appointment.checkup_end} after checking your medical appointment but recommends you to see Dr. {doctor_refer.first_name} {doctor_refer.last_name} of {doctor_refer.specialization.field}. Have a good day!.\nAdditional Message. Dr. {doctor.first_name}  {doctor.last_name} says: \"{request.POST['message']}\""
+        message_notes = f"Dr. {doctor.first_name} {doctor.last_name} cancelled your appointment that was originally schedule on {appointment.checkup_date} at {appointment.checkup_start}-{appointment.checkup_end} after checking your medical appointment but recommends you to see Dr. {doctor_refer.first_name} {doctor_refer.last_name} of {doctor_refer.specialization.field}. Have a good day!.\n\nAdditional Message: Dr. {doctor.first_name}  {doctor.last_name} says: \"{request.POST['message']}\""
 
         body = {
             'outboundSMSMessageRequest': {

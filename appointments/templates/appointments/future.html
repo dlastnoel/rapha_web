@@ -1,0 +1,44 @@
+{% extends 'base/in_main.html' %}
+{% load static %}
+
+{% block content %}
+<main class="col-md-10 ms-auto m-md-0 ms-lg-auto mt-3 pl-5">
+  <div class="mt-3">
+    <h2>{{ title }}</h2>
+  </div>
+  <hr>
+  <div class="row d-sm-block d-md-none">
+  </div>
+  <div class="row d-sm-none d-none d-md-flex">
+    <div class="col">
+      <h5>Future Appointments</h5>
+      <table id="future-table" class="table table-light table-borderless table-striped">
+        <thead>
+          <tr>
+            <th>Sex</th>
+            <th>Birthday</th>
+            <th>Age</th>
+            <th>Checkup Date</th>
+            <th>Checkup Time</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for patient, age in appointments %}
+          <tr>
+            <td>{{ patient.patient.sex|capfirst }}</td>
+            <td>{{ patient.patient.date_of_birth }}</td>
+            <td>{{ age_today }}</td>
+            <td>{{ patient.checkup_date }}</td>
+            <td>{{ patient.checkup_start }} - {{ patient.checkup_end }}</td>
+            <td>{{ patient.status }}</td>
+            <td><a href="{% url 'appointment' patient.id %}"><i class="fas fa-eye"></i></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+{% endblock content%}

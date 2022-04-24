@@ -9,7 +9,7 @@
   <hr>
   <div class="row d-sm-block d-md-none">
     <div class="col-md-12">
-      <table id="doctor-table" class="table table-light table-borderless table-striped">
+      <table id="doctors-table" class="table table-light table-borderless table-striped">
         <thead>
           <tr>
             <th>Full Name</th>
@@ -118,13 +118,5 @@
       deleteForm.action = formAction.replace(/.{0,4}$/, '') + triggerDelete[i].id + '/';
     })
   }
-
-  $(document).ready(function () {
-    var table = $('#doctor-table').DataTable({
-      responsive: true
-    });
-
-    new $.fn.dataTable.FixedHeader(table);
-  });
 </script>
 {% endblock content%}

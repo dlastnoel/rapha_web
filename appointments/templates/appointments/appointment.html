@@ -20,9 +20,15 @@
       </span>
     </span>
     {% else %}
-    <button type=" button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-cancel-appointment">
-      Cancel Appointment and Refer
-    </button>
+    <span>
+      <button type=" button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-cancel-appointment">
+        Cancel
+      </button>
+      <button type=" button" class="btn btn-primary" data-bs-toggle="modal"
+        data-bs-target="#modal-cancel-and-refer-appointment">
+        Cancel Appointment and Refer
+      </button>
+    </span>
     {% endif %}
   </div>
   <hr>
@@ -919,13 +925,35 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Cancel Appointment and Refer</h5>
+          <h5 class="modal-title">Cancel Appointment</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form action="{% url 'cancel-appointment' patient_appointment.id %}" method="POST">
             {% csrf_token %}
-            {{ cancel_form }}
+            {{ cancel_appointment_form }}
+        </div>
+        <div class="modal-footer">
+          <input type="submit" value="Cancel Appointment" class="btn btn-primary">
+          </form>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal-cancel-and-refer-appointment" tabindex="-1"
+    aria-labelledby="modal-cancel-and-refer-appointment" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cancel Appointment and Refer</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'cancel-and-refer' patient_appointment.id %}" method="POST">
+            {% csrf_token %}
+            {{ cancel_and_refer_form }}
         </div>
         <div class="modal-footer">
           <input type="submit" value="Cancel and Refer" class="btn btn-primary">

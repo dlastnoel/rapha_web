@@ -3,8 +3,11 @@
 
 {% block content %}
 <main class="col-md-10 ms-auto m-md-0 ms-lg-auto mt-3 pl-5">
-  <div class="mt-3">
+  <div class="d-flex justify-content-between mt-3">
     <h2>{{ title }}</h2>
+    <a href="{% url 'future' %}" class="btn btn-primary">
+      Future Appointments
+    </a>
   </div>
   <hr>
   <div class="row d-sm-block d-md-none">
