@@ -38,22 +38,12 @@ class Doctor(models.Model):
 
 
 class Schedule(models.Model):
-    weekday_choices = (
-        ('Monday', "Monday"),
-        ('Tuesday', "Tuesday"),
-        ('Wednesday', "Wednesday"),
-        ('Thursday', "Thursday"),
-        ('Friday', "Friday"),
-        ('Saturday', "Saturday"),
-        ('Sunday', "Sunday"),
-    )
-
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     clinic = models.CharField(max_length=255, null=True, blank=True)
     weekday = models.CharField(
-        max_length=100,  choices=weekday_choices)
+        max_length=100)
     start = models.TimeField(null=True, blank=True)
     end = models.TimeField(null=True, blank=True)
 

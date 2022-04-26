@@ -67,6 +67,10 @@ class ScheduleForm(ModelForm):
             'name': 'end'
         })
         self.fields['weekday'].widget.attrs['readonly'] = True
+        self.fields['start'].required = True
+        self.fields['end'].required = True
+        self.fields['weekday'].required = True
+        self.fields['clinic'].required = True
 
 
 class NewDoctorForm(ModelForm):

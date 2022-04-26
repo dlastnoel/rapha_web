@@ -5,6 +5,11 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from . forms import *
 from datetime import datetime, date, timedelta
+from django.db.models import Count
+from django.db.models.functions import ExtractWeek, ExtractYear
+from django.db.models import Sum, Count
+from django.db.models.functions import TruncMonth, ExtractMonth, ExtractDay
+from appointments.models import Appoinment
 # from io import BytesIO
 # from django.http import HttpResponse
 # from django.template.loader import get_template
@@ -121,10 +126,50 @@ def registerUser(request):
 @login_required(login_url='login')
 def dashboard(request):
     slot = Slot.objects.get(id=1)
+    doctor_fields = Doctor.objects.all().values('specialization__field').annotate(
+        total=Count('specialization')).order_by('total')
+    field_total = Doctor.objects.count()
+    # stats = ((Appoinment.objects.filter(status='done'))
+    #          .annotate(year=ExtractYear('checkup_date'))
+    #          .annotate(week=ExtractWeek('checkup_date'))
+    #          .values('year', 'week')
+    #          .annotate(count=Count('patient'))
+    #          )
+    # stats = Appoinment.objects.filter(status='done').extra(
+    #     {'day': 'checkup_date'}).values_list('day').annotate(Count('patient'))
+
+    stats = Appoinment.objects.filter(status='done').values('checkup_date').annotate(
+        total=Count('checkup_date')).order_by('total')
+    # Starts with knowing the day of the week
+    week_day = datetime.now().isocalendar()[2]
+    # Calculates Starting date (Sunday) for this case by subtracting current date with time delta of the day of the week
+    start_date = datetime.now() - timedelta(days=week_day)
+    # Prints the list of dates in a current week
+    dates = [((start_date + timedelta(days=i)).date())
+             for i in range(7)]
+
+    i = 0
+    j = 0
+    for stat in stats:
+        while(i < 7):
+            print('DATE: ', dates[i])
+            print('CHECKUP DATE: ', stat['checkup_date'])
+            if(dates[i] == stat['checkup_date']):
+                print('MATCHED')
+            i = i+1
+        i = 0
+
+    # for record in stats:
+    #     print('PRINT')
+    #     d = date(record['year'], 1, 1)
+    #     dlt = timedelta(days=(record['week'])*7)
+    #     startdate = d + dlt + timedelta(days=6)
+
     if slot.limit == date.today():
         slot.limit = date.today() + timedelta(days=14)
         slot.save()
     print(slot.limit)
+
     title = 'Dashboard'
     is_admin = request.user.is_superuser
     doctor = request.user.doctor
@@ -133,7 +178,10 @@ def dashboard(request):
         'title': title,
         'doctor': doctor,
         'is_admin': is_admin,
-        'nav_active': nav_active
+        'nav_active': nav_active,
+        'doctor_fields': doctor_fields,
+        'field_total': field_total,
+        'stats': stats,
     }
 
     return render(request, 'doctors/dashboard.html', context)
