@@ -6,9 +6,6 @@
 <main class="col-md-10 ms-auto m-md-0 ms-lg-auto mt-3 pl-5">
   <div class="mt-3">
     <h2>{{ title }}</h2>
-    {% for stat in stats %}
-    {{stat}}
-    {% endfor %}
   </div>
   <hr>
   <!-- Dashboard Cards -->
@@ -20,7 +17,7 @@
             <i class="fas fa-user-injured fa-3x"></i>
           </div>
           <div>
-            <h3>30</h3>
+            <h3>{{ stats_count }}</h3>
             <h5>APPOINTMENTS COUNT</h5>
           </div>
         </div>
@@ -33,7 +30,7 @@
             <i class="fas fa-heartbeat fa-3x"></i>
           </div>
           <div>
-            <h3>23</h3>
+            <h3>{{ registered_users }}</h3>
             <h5>REGISTERED USERS</h5>
           </div>
         </div>
@@ -46,7 +43,7 @@
             <i class="fas fa-medkit fa-3x"></i>
           </div>
           <div>
-            <h3>30</h3>
+            <h3>{{ registered_doctors }}</h3>
             <h5>REGISTERED DOCTORS</h5>
           </div>
         </div>
@@ -74,7 +71,7 @@
             <canvas id="appointmentChart"></canvas>
           </div>
           <div class="col-md-5">
-            <h2 class="fs-4 text-center">Patient Conditions</h2>
+            <h2 class="fs-4 text-center">Common Symptoms</h2>
             <div class="chart-container container-fluid m-auto d-flex justify-content-center align-items-center">
               <canvas id="patientStatus"></canvas>
             </div>
@@ -91,12 +88,12 @@
 <script src="{% static 'js/appointments.js' %}"></script>
 <script>
   const data = {
-    labels: ['Flu', 'Stomachache', 'Headache', 'Cough', 'Chest Pain'],
+    labels: ['Cough', 'Pain', 'Weakness', 'Trouble Breathing', 'Vomitting', 'Voweling', 'Others'],
     datasets: [{
       label: '# of Votes',
-      data: [13, 10, 23, 6, 10],
-      borderWidth: 1,
-      backgroundColor: ['#F1C40F', '#1C89D3', '#CB4335', '#0BA54B', '#884EA0'],
+      data: {{ symptoms| safe }},
+  borderWidth: 1,
+    backgroundColor: ['#F1C40F', '#1C89D3', '#CB4335', '#0BA54B', '#884EA0', '#28BBF1', '#E7E7E7'],
     }],
   };
   // Append '4d' to the colors (alpha channel), except for the hovered index
@@ -133,7 +130,7 @@
   );
 
   const appointmentLabels = [
-    'Monday',
+    "Monday",
     'Tuesday',
     'Wednesday',
     'Thursday',
@@ -142,12 +139,12 @@
     'Sunday'
   ];
   const apointmentData = {
-    labels: appointmentLabels,
-    datasets: [{
-      label: 'APPOINMENTS DONE BY DAY',
-      backgroundColor: 'rgb(7, 174, 217)',
-      borderColor: 'rgb(7, 174, 217)',
-      data: [0, 10, 5, 2, 20, 30, 45, 66],
+    labels: {{ checkup_dates| safe }},
+  datasets: [{
+    label: 'Weekley Appointments',
+    backgroundColor: 'rgb(7, 174, 217)',
+    borderColor: 'rgb(7, 174, 217)',
+    data: {{ counts| safe }}
     }]
   };
   const appoinmentConfigs = {

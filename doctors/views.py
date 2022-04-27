@@ -3,6 +3,9 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+
+from patients.models import ChiefComplaint
+from clients.models import Client
 from . forms import *
 from datetime import datetime, date, timedelta
 from django.db.models import Count
@@ -10,6 +13,7 @@ from django.db.models.functions import ExtractWeek, ExtractYear
 from django.db.models import Sum, Count
 from django.db.models.functions import TruncMonth, ExtractMonth, ExtractDay
 from appointments.models import Appoinment
+
 # from io import BytesIO
 # from django.http import HttpResponse
 # from django.template.loader import get_template
@@ -129,17 +133,14 @@ def dashboard(request):
     doctor_fields = Doctor.objects.all().values('specialization__field').annotate(
         total=Count('specialization')).order_by('total')
     field_total = Doctor.objects.count()
-    # stats = ((Appoinment.objects.filter(status='done'))
-    #          .annotate(year=ExtractYear('checkup_date'))
-    #          .annotate(week=ExtractWeek('checkup_date'))
-    #          .values('year', 'week')
-    #          .annotate(count=Count('patient'))
-    #          )
-    # stats = Appoinment.objects.filter(status='done').extra(
-    #     {'day': 'checkup_date'}).values_list('day').annotate(Count('patient'))
-
-    stats = Appoinment.objects.filter(status='done').values('checkup_date').annotate(
+    stats = Appoinment.objects.filter(status='done').values('unicode', 'checkup_date').annotate(
         total=Count('checkup_date')).order_by('total')
+    stats_count = 0
+    registered_users = Client.objects.count()
+    registered_doctors = Doctor.objects.count()
+    for stat in stats:
+        stats_count = stats_count + stat['total']
+
     # Starts with knowing the day of the week
     week_day = datetime.now().isocalendar()[2]
     # Calculates Starting date (Sunday) for this case by subtracting current date with time delta of the day of the week
@@ -147,28 +148,56 @@ def dashboard(request):
     # Prints the list of dates in a current week
     dates = [((start_date + timedelta(days=i)).date())
              for i in range(7)]
+    checkup_dates = []
+    counts = []
+    symptoms = [
+        0,  # cough - 0
+        0,  # pain - 1
+        0,  # weakness - 2
+        0,  # trouble_breathing - 3
+        0,  # vomitting - 4
+        0,  # voweling - 5
+        0  # others - 6
+    ]
 
     i = 0
-    j = 0
+    while(i < 7):
+        checkup_dates.append(dates[i].strftime('%B %d, %Y'))
+        counts.append(0)
+        i = i+1
+    i = 0
+
     for stat in stats:
         while(i < 7):
             print('DATE: ', dates[i])
             print('CHECKUP DATE: ', stat['checkup_date'])
             if(dates[i] == stat['checkup_date']):
-                print('MATCHED')
+                counts[i] = counts[i]+1
+                chief_complaint = ChiefComplaint.objects.get(
+                    unicode=stat['unicode'])
+                if chief_complaint.cough:
+                    symptoms[0] = symptoms[0] + 1
+                if chief_complaint.pain:
+                    symptoms[1] = symptoms[1] + 1
+                if chief_complaint.weakness:
+                    symptoms[2] = symptoms[2] + 1
+                if chief_complaint.trouble_breathing:
+                    symptoms[3] = symptoms[3] + 1
+                if chief_complaint.vomitting:
+                    symptoms[4] = symptoms[4] + 1
+                if chief_complaint.voweling:
+                    symptoms[5] = symptoms[5] + 1
+                if chief_complaint.others != '':
+                    symptoms[6] = symptoms[6] + 1
             i = i+1
         i = 0
+    i = 0
 
-    # for record in stats:
-    #     print('PRINT')
-    #     d = date(record['year'], 1, 1)
-    #     dlt = timedelta(days=(record['week'])*7)
-    #     startdate = d + dlt + timedelta(days=6)
+    print('SYMPTOMS DATA:', symptoms)
 
     if slot.limit == date.today():
         slot.limit = date.today() + timedelta(days=14)
         slot.save()
-    print(slot.limit)
 
     title = 'Dashboard'
     is_admin = request.user.is_superuser
@@ -182,6 +211,12 @@ def dashboard(request):
         'doctor_fields': doctor_fields,
         'field_total': field_total,
         'stats': stats,
+        'stats_count': stats_count,
+        'checkup_dates': checkup_dates,
+        'counts': counts,
+        'symptoms': symptoms,
+        'registered_users': registered_users,
+        'registered_doctors': registered_doctors,
     }
 
     return render(request, 'doctors/dashboard.html', context)
