@@ -81,10 +81,10 @@ def getClient(request):
 
 @api_view(['POST'])
 def getClientByPatientId(request):
-  client = Client.objects.get(patient=request.data['patient'])
-  serializer = ClientSerializer(client)
+    client = Client.objects.get(patient=request.data['patient'])
+    serializer = ClientSerializer(client)
 
-  return Response(serializer.data)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
@@ -124,6 +124,13 @@ def getPatients(request):
         patients = Patient.objects.filter(client=client_id)
         serializer = PatientSerializer(patients,  many=True)
         return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getRawPatients(request):
+    patients = Patient.objects.all()
+    serializer = PatientSerializer(patients,  many=True)
+    return Response(serializer.data)
 
 
 @api_view(['POST'])

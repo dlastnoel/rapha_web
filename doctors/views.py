@@ -418,7 +418,7 @@ def deactivate(request, pk):
 @login_required(login_url='login')
 def specializations(request):
     if request.user.is_superuser:
-        specializations = Specialization.objects.all()
+        specializations = Specialization.objects.filter(soft_delete=False)
         title = 'Specializations'
         is_admin = request.user.is_superuser
         doctor = request.user.doctor
@@ -449,7 +449,8 @@ def specializations(request):
 def deleteSpecialization(request, pk):
     if request.user.is_superuser:
         specialization = Specialization.objects.get(id=pk)
-        specialization.delete()
+        specialization.soft_delete = True
+        specialization.save()
         return redirect('specializations')
     else:
         return redirect('dashboard')
