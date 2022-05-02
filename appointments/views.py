@@ -1,4 +1,5 @@
 from site import addsitepackages
+from time import strftime
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
@@ -285,7 +286,12 @@ def cancelAppointment(request, pk):
                 'code': code
             })
         access_token = response.json()['access_token']
-        message_notes = f"Dr. {doctor.first_name} {doctor.last_name} cancelled your appointment scheduled on {appointment.checkup_date} at {appointment.checkup_start}-{appointment.checkup_end}.\n\nAdditional Message: Dr. {doctor.first_name}  {doctor.last_name} says: \"{request.POST['message']}\""
+        checkup_date = appointment.checkup_date.strftime('%B %d, %Y')
+        checkup_start = appointment.checkup_start.strftime(
+            '%I:%M %p')
+        checkup_end = appointment.checkup_end.strftime(
+            '%I:%M %p')
+        message_notes = f"Dr. {doctor.first_name} {doctor.last_name} cancelled your appointment scheduled on { checkup_date } at {checkup_start}-{checkup_end}.\n\nAdditional Message: Dr. {doctor.first_name}  {doctor.last_name} says: \"{request.POST['message']}\""
 
         body = {
             'outboundSMSMessageRequest': {
@@ -335,7 +341,12 @@ def cancelAndReferAppointment(request, pk):
                 'code': code
             })
         access_token = response.json()['access_token']
-        message_notes = f"Dr. {doctor.first_name} {doctor.last_name} cancelled your appointment that was originally schedule on {appointment.checkup_date} at {appointment.checkup_start}-{appointment.checkup_end} after checking your medical appointment but recommends you to see Dr. {doctor_refer.first_name} {doctor_refer.last_name} of {doctor_refer.specialization.field}. Have a good day!.\n\nAdditional Message: Dr. {doctor.first_name}  {doctor.last_name} says: \"{request.POST['message']}\""
+        checkup_date = appointment.checkup_date.strftime('%B %d, %Y')
+        checkup_start = appointment.checkup_start.strftime(
+            '%I:%M %p')
+        checkup_end = appointment.checkup_end.strftime(
+            '%I:%M %p')
+        message_notes = f"Dr. {doctor.first_name} {doctor.last_name} cancelled your appointment that was originally schedule on {checkup_date} at {checkup_start}-{checkup_end} after checking your medical appointment but recommends you to see Dr. {doctor_refer.first_name} {doctor_refer.last_name} of {doctor_refer.specialization.field}. Have a good day!.\n\nAdditional Message: Dr. {doctor.first_name}  {doctor.last_name} says: \"{request.POST['message']}\""
 
         body = {
             'outboundSMSMessageRequest': {

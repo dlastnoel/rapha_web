@@ -7,6 +7,7 @@ from patients.models import Patient
 
 class Specialization(models.Model):
     field = models.CharField(max_length=100)
+    soft_delete = models.BooleanField(default=False, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
