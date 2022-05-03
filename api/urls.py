@@ -14,6 +14,7 @@ urlpatterns = [
     path('get-patients/', views.getPatients, name='get-patients'),
     path('get-raw-patients/', views.getRawPatients, name='get-raw-patients'),
     path('get-patient/', views.getPatient, name='get-patient'),
+    path('get-client-patient/', views.getClientPatient, name='get-client-patient'),
     # path('pdf_download/', doctor_views.ViewPDF.as_view(), name="pdf_download"),
 
     # Medical endpoints

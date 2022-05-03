@@ -126,6 +126,18 @@ def getPatients(request):
         return Response(serializer.data)
 
 
+@api_view(['POST'])
+def getClientPatient(request):
+    token = jwt.decode(request.data['client'],
+                       request.data['code'], algorithms="HS256")
+    client_id = token['id']
+    if Patient.objects.get(client=client_id):
+        patients = Patient.objects.get(client=client_id)
+        serializer = PatientSerializer(patients)
+        print(serializer.data)
+        return Response(serializer.data)
+
+
 @api_view(['GET'])
 def getRawPatients(request):
     patients = Patient.objects.all()
