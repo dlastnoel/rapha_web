@@ -4,16 +4,17 @@
     <a class="navbar-brand" href="{% url 'index' %}">
       <img src="{% static 'img/nav_logo.png' %}" alt="Rapha" width="76" height="44">
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav">
         {% if not is_download %}
         <li class="nav-item">
-          <a href="#main" class="nav-link active" aria-current="page">Home</a>
+          <a href="{% url 'index' %}" class="nav-link active" aria-current="page">Home</a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a href="#about" class="nav-link active" aria-current="page">About</a>
         </li>
         <li class="nav-item">
@@ -27,7 +28,7 @@
         </li>
         <li class="nav-item">
           <a href="#contact" class="nav-link active" aria-current="page">Contact</a>
-        </li>
+        </li> -->
         {% endif %}
         <li class="nav-item">
           <a href="{% url 'download' %}" class="btn btn-danger nav-btn-width" aria-current="page">Download</a>
