@@ -64,8 +64,8 @@ class PresentIllness(models.Model):
         Patient, on_delete=models.CASCADE, null=True, blank=True)
     unicode = models.CharField(max_length=300, null=True)
     symptoms_started = models.DateField(null=True, blank=True)
-    how_often = models.CharField(max_length=20, null=True, blank=True)
-    how_long = models.CharField(max_length=20, null=True, blank=True)
+    how_often = models.TextField(null=True, blank=True)
+    how_long = models.TextField(null=True, blank=True)
     describe = models.TextField(null=True, blank=True)
     severity = models.CharField(
         max_length=50, choices=SEVERITY, null=True, blank=True)
