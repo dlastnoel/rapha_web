@@ -55,6 +55,7 @@ def saveContact(request):
     if serializer.is_valid():
         serializer.save()
         client = Client.objects.latest('created_at')
+        # client_serializer = ClientIdSerializer(client, many=False)
         client_serializer = ClientIdSerializer(client)
     return Response(client_serializer.data)
 
