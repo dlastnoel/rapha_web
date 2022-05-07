@@ -14,8 +14,8 @@ def index(request):
 def download(request):
     if(request.user.is_authenticated):
         return redirect('dashboard')
-        context = {
-            'title': 'Download',
-            'is_download': True
-        }
-        return render(request, 'download.html', context)
+    context = {
+        'title': 'Download',
+        'is_download': True
+    }
+    return render(request, 'download.html', context)

@@ -28,8 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.1.4', '127.0.0.1', '192.168.100.18', '192.168.43.143',
                  '192.168.52.1', '192.168.1.4', '192.168.200.180', '192.168.52.1',
-                 '192.168.209.180', '192.168.0.110', '192.168.19.180', 'localhost',
-                 '.rapha.live']
+                 '192.168.209.180', '192.168.0.110', '192.168.19.180', '192.168.63.180',
+                 'localhost', '.rapha.live']
 
 
 # Application definition
@@ -120,7 +120,7 @@ TIME_INPUT_FORMATS = ['%I:%M %p']
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Manila'
 
 USE_I18N = True
 

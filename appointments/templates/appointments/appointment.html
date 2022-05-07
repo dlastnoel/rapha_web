@@ -57,7 +57,9 @@
       <hr>
       <!-- medical data -->
       <div class="overflow-auto" style="height: 60vh;">
-        <!-- Chief Complaint -->
+
+
+        <!-- chief complaint -->
         <h4>Chief Complaint</h4>
         <ul>
           {% if chief_complaint.cough %}
@@ -83,7 +85,9 @@
           {% endif %}
         </ul>
         <hr>
-        <!-- Present Illness -->
+
+
+        <!-- present illness -->
         <h4>Present Illness</h4>
         <ul>
           {% if present_illness.symptoms_started != '' %}
@@ -102,43 +106,45 @@
           <li>Severity: {{ present_illness.severity }}</li>
           {% endif %}
         </ul>
-        <p class=" m-0">
-          <strong>
-            What activites of daily living is/are affected?
-          </strong>
-        </p>
-        <ul>
-          {% if present_illness.affects_walking %}
-          <li>On walking</li>
-          {% endif %}
-          {% if present_illness.affects_bathing %}
-          <li>On bathing</li>
-          {% endif %}
-          {% if present_illness.affects_dressing %}
-          <li>On dressing</li>
-          {% endif %}
-          {% if present_illness.affects_eating %}
-          <li>On eating</li>
-          {% endif %}
-          {% if present_illness.affects_hygiene %}
-          <li>On hygiene</li>
-          {% endif %}
-          {% if present_illness.affects_sleeping %}
-          <li>On sleeping</li>
-          {% endif %}
-          {% if present_illness.affects_toilet %}
-          <li>On toilet</li>
-          {% endif %}
-          {% if present_illness.affects_sex %}
-          <li>On sex</li>
-          {% endif %}
-          {% if present_illness.affects_bowel %}
-          <li>On bowel</li>
-          {% endif %}
-          {% if present_illness.affects_urination %}
-          <li>On urination</li>
-          {% endif %}
-        </ul>
+        {% if present_illness.affects_walking or present_illness.affects_bathing or present_illness.affects_dressing or present_illness.affects_eating or present_illness.affects_hygiene or present_illness.affects_sleeping or present_illness.affects_toilet or present_illness.affects_sex or present_illness.affects_bowel or present_illness.affects_urination %}
+          <p class=" m-0">
+            <strong>
+              What activites of daily living is/are affected?
+            </strong>
+          </p>
+          <ul>
+            {% if present_illness.affects_walking %}
+            <li>On walking</li>
+            {% endif %}
+            {% if present_illness.affects_bathing %}
+            <li>On bathing</li>
+            {% endif %}
+            {% if present_illness.affects_dressing %}
+            <li>On dressing</li>
+            {% endif %}
+            {% if present_illness.affects_eating %}
+            <li>On eating</li>
+            {% endif %}
+            {% if present_illness.affects_hygiene %}
+            <li>On hygiene</li>
+            {% endif %}
+            {% if present_illness.affects_sleeping %}
+            <li>On sleeping</li>
+            {% endif %}
+            {% if present_illness.affects_toilet %}
+            <li>On toilet</li>
+            {% endif %}
+            {% if present_illness.affects_sex %}
+            <li>On sex</li>
+            {% endif %}
+            {% if present_illness.affects_bowel %}
+            <li>On bowel</li>
+            {% endif %}
+            {% if present_illness.affects_urination %}
+            <li>On urination</li>
+            {% endif %}
+          </ul>
+        {% endif %}
         <ul>
           {% if present_illness.affects_activities != '' %}
           <li>How does it affect your ambulation, work and recreation?: {{ present_illness.affects_activities }}</li>
@@ -152,9 +158,13 @@
         </ul>
         <hr>
 
-        <!-- Childhood Illness -->
+
+        <!-- childhood illness -->
         <h4>Childhood Illness</h4>
         <ul>
+          {% if not childhood_illness.measles and not childhood_illness.mumps and not childhood_illness.rubella and not childhood_illness.asthma and not childhood_illness.primary_complex and not childhood_illness.chicken_pox and childhood_illness.others == '' %}
+          <li>None</li>
+          {% endif %}
           {% if childhood_illness.measles %}
           <li>Measles</li>
           {% endif %}
@@ -180,7 +190,7 @@
         <hr>
 
 
-        <!-- Adult Illness -->
+        <!-- adult illness -->
         <h4>Adult Illness</h4>
         <ul>
           {% if adult_illness.diabetes %}
@@ -211,7 +221,7 @@
         <hr>
 
 
-        <!-- History of Immunization -->
+        <!-- history of immunization -->
         <h4>Surgeries, Hospitalizations & Immunization</h4>
         <ul>
           {% if history_of_immunization.surgeries != '' %}
@@ -230,6 +240,9 @@
           </strong>
         </p>
         <ul>
+          {% if not history_of_immunization.hepatitis_a and not history_of_immunization.hepatitis_b and not history_of_immunization.polio and not history_of_immunization.measles and not history_of_immunization.influenza and not history_of_immunization.varicella and not history_of_immunization.influenza_b and not history_of_immunization.pneumococcal and not history_of_immunization.meningococcal and not history_of_immunization.hpv and history_of_immunization.others_immunization == '' %}
+          <li>None</li>
+          {% endif %}
           {% if history_of_immunization.hepatitis_a %}
           <li>Hepatitis A</li>
           {% endif %}
@@ -300,9 +313,12 @@
         </ul>
         <hr>
 
-        <!-- Family History -->
+        <!-- family history -->
         <h4>Family History</h4>
         <ul>
+          {% if not family_history.diabetes and not family_history.hypertension and not family_history.stroke and not family_history.arthritis and not family_history.tuberculosis and not family_history.heart_disease and not family_history.thyroid and not family_history.asthma and family_history.others == '' %}
+          <li>None</li>
+          {% endif %}
           {% if family_history.diabetes %}
           <li>Diabetes</li>
           {% endif %}
@@ -331,43 +347,42 @@
           <li>Others: {{ family_history.others }}</li>
           {% endif %}
         </ul>
-        <hr>
 
 
-        <!-- Personal and Social History -->
-        <h4>Personal and Social History</h4>
-        <ul>
-          {% if personal_and_social_history.physical_activity != '' %}
-          <li>Regular physical activity: {{ personal_and_social_history.physical_activity }}</li>
-          {% endif %}
-          {% if personal_and_social_history.healthy_foods != '' %}
-          <li>Healthy Foods: {{ personal_and_social_history.healthy_foods }}</li>
-          {% endif %}
-          {% if personal_and_social_history.course_year_level != '' %}
-          <li>Course/Year Level: {{ personal_and_social_history.course_year_level }}</li>
-          {% endif %}
-          {% if personal_and_social_history.occupation != '' %}
-          <li>Occupation: {{ personal_and_social_history.occupation }}</li>
-          {% endif %}
-          {% if personal_and_social_history.sticks_per_day != '' %}
-          <li>Smoking: Yes, {{ personal_and_social_history.sticks_per_day }} stick(s) per day</li>
-          {% endif %}
-          {% if personal_and_social_history.years_smoking != '' %}
-          <li>Years smoking: {{ personal_and_social_history.years_smoking }}</li>
-          {% endif %}
-          {% if personal_and_social_history.when_stop_smoking != '' %}
-          <li>Stopped at: {{ personal_and_social_history.when_stop_smoking }} </li>
-          {% endif %}
-          {% if personal_and_social_history.bottles_per_day %}
-          <li>Drinking: Yes, {{ personal_and_social_history.bottles_per_day }} bottle(s) per day</li>
-          {% endif %}
-          {% if personal_and_social_history.how_often_drinking %}
-          <li>How often: {{ personal_and_social_history.how_often_drinking }}</li>
-          {% endif %}
-          {% if personal_and_social_history.others != '' %}
-          <li>Others: {{ personal_and_social_history.others }}</li>
-          {% endif %}
-        </ul>
+        <!-- personal and social history -->
+        {% if personal_and_social_history.physical_activity == '' and personal_and_social_history.healthy_foods == '' and personal_and_social_history.course_year_level == None and personal_and_social_history.occupation == None and personal_and_social_history.sticks_per_day == None and personal_and_social_history.years_smoking == None and personal_and_social_history.when_stop_smoking == None and not personal_and_social_history.bottles_per_day == None and personal_and_social_history.how_often_drinking == None %}  
+          <hr>
+          <h4>Personal and Social History</h4>
+          <ul>
+            {% if personal_and_social_history.physical_activity != '' %}
+            <li>Regular physical activity: {{ personal_and_social_history.physical_activity }}</li>
+            {% endif %}
+            {% if personal_and_social_history.healthy_foods != '' %}
+            <li>Healthy Foods: {{ personal_and_social_history.healthy_foods }}</li>
+            {% endif %}
+            {% if personal_and_social_history.course_year_level != None %}
+            <li>Course/Year Level: {{ personal_and_social_history.course_year_level }}</li>
+            {% endif %}
+            {% if personal_and_social_history.occupation != None %}
+            <li>Occupation: {{ personal_and_social_history.occupation }}</li>
+            {% endif %}
+            {% if personal_and_social_history.sticks_per_day != None %}
+            <li>Smoking: Yes, {{ personal_and_social_history.sticks_per_day }} stick(s) per day</li>
+            {% endif %}
+            {% if personal_and_social_history.years_smoking != None %}
+            <li>Years smoking: {{ personal_and_social_history.years_smoking }}</li>
+            {% endif %}
+            {% if personal_and_social_history.when_stop_smoking != None %}
+            <li>Stopped at: {{ personal_and_social_history.when_stop_smoking }} </li>
+            {% endif %}
+            {% if personal_and_social_history.bottles_per_day != None  %}
+            <li>Drinking: Yes, {{ personal_and_social_history.bottles_per_day }} bottle(s) per day</li>
+            {% endif %}
+            {% if personal_and_social_history.how_often_drinking != None %}
+            <li>How often: {{ personal_and_social_history.how_often_drinking }}</li>
+            {% endif %}
+          </ul>
+        {% endif %}
 
         {% if personal_and_social_history.substance_drugs != ''%}
         <p class="m-0">
@@ -388,82 +403,81 @@
           {% endif %}
         </ul>
         {% endif %}
+
+
+        <!-- functional history -->
+        {% if family_history.assistive_walking != None and family_history.affects_walking and family_history.affects_bathing and family_history.affects_dressing and family_history.affects_eating and family_history.affects_hygiene and family_history.affects_sleeping and family_history.affects_toilet and family_history.affects_sex and family_history.affects_bowel and family_history.affects_urination and family_history.needs_support == None and family_history.assistive_devices != None and family_history.difficulties_activities != None and family_history.difficulties_assistance != None and family_history.difficulties_in_complicated != None and family_history.difficulties_in_verbal != None %}
+          <hr>
+          <h4>Functional History</h4>
+          <ul>
+            {% if family_history.assistive_walking != None %}
+            <li>Assitive device in walking: {{ family_history.assistive_walking }}</li>
+            {% endif %}
+          </ul>
+          <p class="m-0">
+            <strong>
+              Daily living activities that you have difficulties with:
+            </strong>
+          </p>
+          <ul>
+            {% if family_history.affects_walking %}
+            <li>Walking</li>
+            {% endif %}
+            {% if family_history.affects_bathing %}
+            <li>Bathing</li>
+            {% endif %}
+            {% if family_history.affects_dressing %}
+            <li>Dressing</li>
+            {% endif %}
+            {% if family_history.affects_eating %}
+            <li>Eating</li>
+            {% endif %}
+            {% if family_history.affects_hygiene %}
+            <li>Hygiene</li>
+            {% endif %}
+            {% if family_history.affects_sleeping %}
+            <li>Sleeping</li>
+            {% endif %}
+            {% if family_history.affects_toilet %}
+            <li>Toilet</li>
+            {% endif %}
+            {% if family_history.affects_sex %}
+            <li>Sex</li>
+            {% endif %}
+            {% if family_history.affects_bowel %}
+            <li>Bowel</li>
+            {% endif %}
+            {% if family_history.affects_urination %}
+            <li>Urination</li>
+            {% endif %}
+          </ul>
+          <ul>
+            {% if family_history.needs_support != None %}
+            <li>How much support do you need: {{ family_history.needs_support }}</li>
+            {% endif %}
+            {% if family_history.assistive_devices != None %}
+            <li>Assistive devices: {{ family_history.assistive_devices }}</li>
+            {% endif %}
+            {% if family_history.difficulties_activities != None %}
+            <li>Activities you have difficulties with: {{ family_history.difficulties_activities }}</li>
+            {% endif %}
+            {% if family_history.difficulties_assistance != None %}
+            <li>Description: {{ family_history.difficulties_assistance }}</li>
+            {% endif %}
+            {% if family_history.difficulties_in_complicated != None %}
+            <li>Complicated activities: {{ family_history.difficulties_in_complicated }}</li>
+            {% endif %}
+            {% if family_history.difficulties_in_verbal != None %}
+            <li>Communication: {{ family_history.difficulties_in_verbal }}</li>
+            {% endif %}
+          </ul>
+        {% endif %}
         <hr>
 
-
-        <!-- Functional History -->
-        <h4>Functional History</h4>
-        <ul>
-          {% if family_history.assistive_walking != '' %}
-          <li>Assitive device in walking: {{ family_history.assistive_walking }}</li>
-          {% endif %}
-          {% if family_history.drive_own %}
-          <li>Driving: {{ family_history.drive_own }}</li>
-          {% endif %}
-        </ul>
-        <p class="m-0">
-          <strong>
-            Daily living activities that you have difficulties with:
-          </strong>
-        </p>
-        <ul>
-          {% if family_history.affects_walking%}
-          <li>Walking</li>
-          {% endif %}
-          {% if family_history.affects_bathing%}
-          <li>Bathing</li>
-          {% endif %}
-          {% if family_history.affects_dressing%}
-          <li>Dressing</li>
-          {% endif %}
-          {% if family_history.affects_eating%}
-          <li>Eating</li>
-          {% endif %}
-          {% if family_history.affects_hygiene%}
-          <li>Hygiene</li>
-          {% endif %}
-          {% if family_history.affects_sleeping%}
-          <li>Sleeping</li>
-          {% endif %}
-          {% if family_history.affects_toilet%}
-          <li>Toilet</li>
-          {% endif %}
-          {% if family_history.affects_sex%}
-          <li>Sex</li>
-          {% endif %}
-          {% if family_history.affects_bowel%}
-          <li>Bowel</li>
-          {% endif %}
-          {% if family_history.affects_urination%}
-          <li>Urination</li>
-          {% endif %}
-        </ul>
-        <ul>
-          {% if family_history.needs_support != ''%}
-          <li>How much support do you need: {{ family_history.needs_support }}</li>
-          {% endif %}
-          {% if family_history.assistive_devices != ''%}
-          <li>Assistive devices: {{ family_history.assistive_devices }}</li>
-          {% endif %}
-          {% if family_history.difficulties_activities != ''%}
-          <li>Activities you have difficulties with: {{ family_history.difficulties_activities }}</li>
-          {% endif %}
-          {% if family_history.difficulties_assistance != ''%}
-          <li>Description: {{ family_history.difficulties_assistance }}</li>
-          {% endif %}
-          {% if family_history.difficulties_in_complicated != ''%}
-          <li>Complicated activities: {{ family_history.difficulties_in_complicated }}</li>
-          {% endif %}
-          {% if family_history.difficulties_in_verbal != ''%}
-          <li>Communication: {{ family_history.difficulties_in_verbal }}</li>
-          {% endif %}
-        </ul>
-        <hr>
-
-        <!-- Review of Systems -->
+        <!-- review of systems -->
         <h4>Review of Systems</h4>
 
-        <!-- General System -->
+        <!-- general system -->
         <p class="m-0">
           <strong>
             General System
@@ -482,9 +496,12 @@
           {% if general_system.weakness %}
           <li>Weakness</li>
           {% endif %}
+          {% if general_system.none %}
+          <li>None</li>
+          {% endif %}
         </ul>
 
-        <!-- Skin Problem -->
+        <!-- skin problem -->
         <p class="m-0">
           <strong>
             Skin Problem
@@ -511,6 +528,9 @@
           {% endif %}
           {% if skin_problem.changes_in_hair_nails %}
           <li>Changes in hair/nails</li>
+          {% endif %}
+          {% if skin_problem.none %}
+          <li>None</li>
           {% endif %}
         </ul>
 
