@@ -32,7 +32,7 @@ class Patient(models.Model):
 
     def __str__(self):
         if self.client.username is not None:
-            return self.client.username
+            return str(self.id) + '(' + self.client.username + ')'
 
 
 class ChiefComplaint(models.Model):
