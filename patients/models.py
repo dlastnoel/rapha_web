@@ -30,6 +30,10 @@ class Patient(models.Model):
     marital_status = models.CharField(max_length=50, choices=MARITAL_STATUS)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
+    def __str__(self):
+        if self.client.username is not None:
+            return self.client.username
+
 
 class ChiefComplaint(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
