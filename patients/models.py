@@ -5,6 +5,7 @@ from random import choice
 import uuid
 from django.db import models
 from clients.models import Client
+import datetime
 # from doctors.models import Doctor
 
 # Create your models here.
@@ -67,7 +68,8 @@ class PresentIllness(models.Model):
     patient = models.ForeignKey(
         Patient, on_delete=models.CASCADE, null=True, blank=True)
     unicode = models.CharField(max_length=300, null=True)
-    symptoms_started = models.DateField(null=True, blank=True)
+    symptoms_started = models.DateField(
+        default=datetime.date.today, null=True, blank=True)
     how_often = models.TextField(null=True, blank=True)
     how_long = models.TextField(null=True, blank=True)
     describe = models.TextField(null=True, blank=True)
