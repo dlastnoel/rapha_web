@@ -71,7 +71,7 @@
             <canvas id="appointmentChart"></canvas>
           </div>
           <div class="col-md-5">
-            <h2 class="fs-4 text-center">Common Symptoms</h2>
+            <h2 class="fs-4 text-center">Chief Complaints</h2>
             <div class="chart-container container-fluid m-auto d-flex justify-content-center align-items-center">
               <canvas id="patientStatus"></canvas>
             </div>
@@ -88,7 +88,7 @@
 <script src="{% static 'js/appointments.js' %}"></script>
 <script>
   const data = {
-    labels: ['Cough', 'Pain', 'Weakness', 'Trouble Breathing', 'Vomitting', 'Voweling', 'Others'],
+    labels: ['Cough', 'Pain', 'Weakness', 'Trouble Breathing', 'Vomitting', 'Diarrhea', 'Others'],
     datasets: [{
       label: '# of Votes',
       data: {{ symptoms| safe }},

@@ -1,5 +1,5 @@
 {% load static %}
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" id="nav">
   <div class="container">
     <a class="navbar-brand" href="{% url 'index' %}">
       <img src="{% static 'img/nav_logo.png' %}" alt="Rapha" width="76" height="44">
@@ -10,7 +10,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav">
-        {% if not is_download %}
         <li class="nav-item">
           <a href="{% url 'index' %}" class="nav-link active" aria-current="page">Home</a>
         </li>
@@ -29,7 +28,6 @@
         <li class="nav-item">
           <a href="#contact" class="nav-link active" aria-current="page">Contact</a>
         </li> -->
-        {% endif %}
         <li class="nav-item">
           <a href="{% url 'download' %}" class="btn btn-danger nav-btn-width" aria-current="page">Download</a>
         </li>

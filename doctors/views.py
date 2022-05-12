@@ -133,7 +133,7 @@ def dashboard(request):
     doctor_fields = Doctor.objects.all().values('specialization__field').annotate(
         total=Count('specialization')).order_by('total')
     field_total = Doctor.objects.count()
-    stats = Appoinment.objects.filter(status='done').values('unicode', 'checkup_date').annotate(
+    stats = Appoinment.objects.values('unicode', 'checkup_date').annotate(
         total=Count('checkup_date')).order_by('total')
     stats_count = 0
     registered_users = Client.objects.count()
