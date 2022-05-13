@@ -10,31 +10,15 @@
     </a>
   </div>
   <hr>
-  <div class="row d-sm-block d-md-none">
-    <div class="col-md-12">
-      <table id="doctor-table" class="table table-light table-borderless table-striped">
-        <thead>
-          <tr>
-            <th>Full Name</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="row d-sm-none d-none d-md-flex">
+  <div class="row d-sm-flex">
     <div class="col">
       <h5>Appointments Today</h5>
-      <table id="doctor-table" class="table table-light table-borderless table-striped">
+      <table class="table table-light table-borderless table-striped">
         <thead>
           <tr>
             <th>Sex</th>
             <th>Birthday</th>
-            <th>Age</th>
+            <th class="d-sm-none">Age</th>
             <th>Checkup Date</th>
             <th>Checkup Time</th>
             <th>Status</th>
@@ -46,7 +30,7 @@
           <tr>
             <td>{{ patient_today.patient.sex|capfirst }}</td>
             <td>{{ patient_today.patient.date_of_birth }}</td>
-            <td>{{ age_today }}</td>
+            <td class="d-sm-none">{{ age_today }}</td>
             <td>{{ patient_today.checkup_date }}</td>
             <td>{{ patient_today.checkup_start }} - {{ patient_today.checkup_end }}</td>
             <td>{{ patient_today.status }}</td>
@@ -58,12 +42,12 @@
     </div>
     <div class="col">
       <h5>Appointments Tomorrow</h5>
-      <table id="doctor-table" class="table table-light table-borderless table-striped">
+      <table class="table table-light table-borderless table-striped">
         <thead>
           <tr>
             <th>Sex</th>
             <th>Birthday</th>
-            <th>Age</th>
+            <th class="d-sm-none">Age</th>
             <th>Checkup Date</th>
             <th>Checkup Time</th>
             <th>Status</th>
@@ -75,7 +59,7 @@
           <tr>
             <td>{{ patient_tomorrow.patient.sex|capfirst }}</td>
             <td>{{ patient_tomorrow.patient.date_of_birth }}</td>
-            <td>{{ age_tomorrow }}</td>
+            <td class="d-sm-none">{{ age_tomorrow }}</td>
             <td>{{ patient_tomorrow.checkup_date }}</td>
             <td>{{ patient_tomorrow.checkup_start }} - {{ patient_tomorrow.checkup_end }}</td>
             <td>{{ patient_tomorrow.status }}</td>

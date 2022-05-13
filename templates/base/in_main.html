@@ -28,7 +28,7 @@
   overflow-hidden h-100
   {% else %}
   overflow-auto
-  {% endif %}">
+  {% endif %}" id="appointment-body">
 
   <!-- Topnav -->
   <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark ps-2 pe-5">
@@ -110,7 +110,16 @@
 
       new $.fn.dataTable.FixedHeader(table);
     });
-  </script>
+    </script>
+    <script>
+     $(document).ready(function () {
+        var tables = $('#patients-table').DataTable({
+          responsive: true
+        });
+
+        new $.fn.dataTable.FixedHeader(tables);
+      });
+    </script>
 </body>
 
 </html>
