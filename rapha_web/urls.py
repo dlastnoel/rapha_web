@@ -33,7 +33,8 @@ urlpatterns = [
     path('api/', include('api.urls')),
 
     path('', views.index, name='index'),
-    path('download/', views.download, name='download')
+    path('download/', views.download, name='download'),
+    path('send_email/', views.sendEmail, name='send-email')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

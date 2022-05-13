@@ -7,33 +7,16 @@
     <h2>{{ title }}</h2>
   </div>
   <hr>
-  <div class="row d-sm-block d-md-none">
-    <div class="col-md-12">
-      <table id="doctor-table" class="table table-light table-borderless table-striped">
-        <thead>
-          <tr>
-            <th>Full Name</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-      </table>
-    </div>
-  </div>
   <div class="row d-sm-none d-none d-md-block">
     <div class="col-md-12">
-      <table id="doctor-table" class="table table-light table-borderless table-striped">
+      <table id="patients-table" class="table table-light table-borderless table-striped">
         <thead>
           <tr>
             <th>Sex</th>
             <th>Birthday</th>
             <th>Age</th>
-            <th>Status</th>
             <th>Created</th>
-            <th></th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -42,9 +25,12 @@
             <td>{{ patient.patient.sex|capfirst }}</td>
             <td>{{ patient.patient.date_of_birth }}</td>
             <td>{{ age }}</td>
-            <td>{{ patient.status }}</td>
             <td>{{ patient.created_at }}</td>
-            <td><a href="{% url 'appointment' patient.id %}"><i class="fas fa-eye"></i></a></td>
+            <td>
+              <a href="{% url 'appointment' patient.id %}"><i class="fas fa-eye"></i></a>
+              &nbsp;
+              <a href="{% url 'pdf-report' patient.id %}" target="_blank"><i class="fas fa-file-pdf"></i></a>
+            </td>
           </tr>
           {% endfor %}
         </tbody>

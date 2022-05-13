@@ -7,9 +7,7 @@
     <h2>{{ title }}</h2>
   </div>
   <hr>
-  <div class="row d-sm-block d-md-none">
-  </div>
-  <div class="row d-sm-none d-none d-md-flex">
+  <div class="row md-flex">
     <div class="col">
       <h5>Future Appointments</h5>
       <table id="future-table" class="table table-light table-borderless table-striped">
@@ -17,7 +15,7 @@
           <tr>
             <th>Sex</th>
             <th>Birthday</th>
-            <th>Age</th>
+            <th class="d-sm-none">Age</th>
             <th>Checkup Date</th>
             <th>Checkup Time</th>
             <th>Status</th>
@@ -29,7 +27,7 @@
           <tr>
             <td>{{ patient.patient.sex|capfirst }}</td>
             <td>{{ patient.patient.date_of_birth }}</td>
-            <td>{{ age_today }}</td>
+            <td class="d-sm-none">{{ age_today }}</td>
             <td>{{ patient.checkup_date }}</td>
             <td>{{ patient.checkup_start }} - {{ patient.checkup_end }}</td>
             <td>{{ patient.status }}</td>

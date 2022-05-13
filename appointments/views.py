@@ -105,8 +105,8 @@ def appointment(request, pk):
     cancel_and_refer_form = CancelAndReferAppointmentForm(doctor_choices)
     previous_appointments = Appoinment.objects.filter(patient=patient_appointment.patient).filter(status='done').exclude(
         unicode=patient_appointment.unicode)
-    patient = patient_appointment.patient
     doctor = request.user.doctor
+    patient = patient_appointment.patient
     nav_active = 'nav-active'
     chief_complaint = ChiefComplaint.objects.get(
         unicode=patient_appointment.unicode)
@@ -137,6 +137,8 @@ def appointment(request, pk):
     gastrointestinal = Gastrointestinal.objects.get(
         unicode=patient_appointment.unicode)
     genitourinary = Genitourinary.objects.get(
+        unicode=patient_appointment.unicode)
+    gynecologic = Gynecologic.objects.get(
         unicode=patient_appointment.unicode)
     endocrine = Endocrine.objects.get(unicode=patient_appointment.unicode)
     musculoskeletal = Musculoskeletal.objects.get(
@@ -175,6 +177,7 @@ def appointment(request, pk):
         'cardiovascular': cardiovascular,
         'gastronintestinal': gastrointestinal,
         'genitourinary': genitourinary,
+        'gynecologic': gynecologic,
         'endocrine': endocrine,
         'musculoskeletal': musculoskeletal,
         'neurologic': neurologic,
