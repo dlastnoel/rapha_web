@@ -33,6 +33,7 @@
             <th>Age</th>
             <th>Status</th>
             <th>Created</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -43,6 +44,7 @@
             <td>{{ age }}</td>
             <td>{{ patient.status }}</td>
             <td>{{ patient.created_at }}</td>
+            <td><a href="{% url 'appointment' patient.id %}"><i class="fas fa-eye"></i></a></td>
           </tr>
           {% endfor %}
         </tbody>

@@ -18,15 +18,15 @@
         <i class="fas fa-calendar"></i> Appointments
       </a>
     </li>
-    {% if is_admin %}
     <li>
       <a href="{% url 'patients'%}" class="nav-link text-white fs-5
-      {% if title == 'Patients' %}
-        {{ nav_active }}
-      {% endif %}">
+          {% if title == 'Patients' %}
+            {{ nav_active }}
+          {% endif %}">
         <i class="fas fa-user-injured"></i> Patients
       </a>
     </li>
+    {% if is_admin %}
     <li>
       <a href="{% url 'specializations' %}" class="nav-link text-white fs-5
       {% if title == 'Specializations' %}

@@ -13,7 +13,7 @@ def patients(request):
     is_admin = request.user.is_superuser
     today = date.today()
     patients = Appoinment.objects.filter(
-        doctor=request.user.doctor).order_by('-created_at')
+        doctor=request.user.doctor).filter(status='done').order_by('-created_at')
     ages = []
     i = 0
 
