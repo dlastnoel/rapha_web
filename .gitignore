@@ -142,3 +142,6 @@ static/img/illnesses
 
 # Doctor Profile Pictures # 
 static/img/doctors
+
+#VS CODE
+.vscode
